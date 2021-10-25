@@ -38,8 +38,8 @@ class Endereco(models.Model):
     bairro = models.CharField('Bairro', max_length=128, null=True, blank=True)
     complemento = models.CharField('Complemento', max_length=128, null=True, blank=True)
     cidade = models.CharField('Cidade', max_length=128, null=True, blank=True)
-    estado = models.CharField('Estado', choices=EstadoChoices.choices, max_length=2, null=True, blank=True)
-    cep = models.CharField('RAzão Social', max_length=128, null=True, blank=True)
+    estado = models.CharField('Estado', choices=EstadoChoices.choices, null=True, blank=True)
+    cep = models.CharField('CEP', max_length=9, null=True, blank=True)
     
     class Meta:
         verbose_name = ('Endereço',)
