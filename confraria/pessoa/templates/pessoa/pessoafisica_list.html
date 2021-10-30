@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Lista de cadastros</h1>
+{% endblock title %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>RG</th>
+                        <th>Bairro</th>
+                        <th>Logradouro</th>
+                        <th>Cidade</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for pessoa in object_list %}
+                        <tr>
+                            <td>{{ pessoa.nome }}</td>
+                            <td>{{ pessoa.cpf|default_if_none:'--' }}</td>
+                            <td>{{ pessoa.rg|default_if_none:'--' }}</td>
+                            <td>{{ pessoa.endereco.bairro|default_if_none:'--' }}</td>
+                            <td>{{ pessoa.endereco.logradouro|default_if_none:'--' }}</td>
+                            <td>{{ pessoa.endereco.cidade|default_if_none:'--' }}</td>
+                            <td>{{ pessoa.ativo|yesno:"Ativo, Inativo" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer d-flex flex-row-reverse">
+        {% include 'pagination.html' %}
+    </div>
+</div>
+
+
+{% endblock content %}
+
