@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "--cov=confraria"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

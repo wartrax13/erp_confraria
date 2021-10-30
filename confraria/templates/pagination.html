@@ -1,0 +1,36 @@
+<nav aria-label="pagination">
+    <ul class="pagination">
+        <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+            <a
+                class="page-link"
+                href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}"
+                tabindex="-1"
+            >Anterior</a>
+        </li>
+        {% if page_obj.number|add:'-2' > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.number|add:'-2' }}">&hellip;</a>
+            </li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="page-item active">
+                    <span class="page-link">{{ i }} <span class="sr-only"></span></span>
+                </li>
+                {% elif i > page_obj.number|add:'-2' and i < page_obj.number|add:'2' %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.paginator.num_pages > page_obj.number|add:'1' %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.number|add:'2' }}">&hellip;</a>
+            </li>
+        {% endif %}
+        <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+            <a
+                class="page-link"
+                href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}"
+            >Próximo</a>
+        </li>
+    </ul>
+</nav>
