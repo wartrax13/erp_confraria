@@ -1,8 +1,5 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.deletion import CASCADE, PROTECT
-from django.db.models.fields import proxy
-
 
 
 class EstadoChoices(models.TextChoices):
@@ -77,7 +74,7 @@ class Pessoa(BaseModel):
     cpf = models.CharField('CPF', max_length=14, null=True, blank=True, unique=True)
     rg = models.CharField('RG', max_length=12, null=True, blank=True)
     data_nascimento = models.DateField('Data de Nascimento', null=True, blank=True)
-    endereco = models.ForeignKey(Endereco, verbose_name='Endereço', on_delete=PROTECT, null=True, blank=True)
+    endereco = models.ForeignKey(Endereco, verbose_name='Endereço', on_delete=models.PROTECT, null=True, blank=True)
     observacao = models.TextField('Observação', max_length=128, null=True, blank=True)
     ativo = models.BooleanField('Ativo', default=True)
     
@@ -128,7 +125,7 @@ class PessoaJuridica(Pessoa):
 
 class Telefone(models.Model):
     numero = models.CharField('Telefone', max_length=128, null=True, blank=True)
-    pessoa = models.ForeignKey('Pessoa', on_delete=CASCADE, related_name='pessoas')
+    pessoa = models.ForeignKey('Pessoa', on_delete=models.CASCADE, related_name='pessoas')
 
     class Meta:
         verbose_name = 'Telefone'

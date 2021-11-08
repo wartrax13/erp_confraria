@@ -1,7 +1,15 @@
 from django.urls import path
-from .views import PessoaFisicaListView
+from django.urls.conf import include
+from .views import PessoaFisicaCreateView, PessoaFisicaListView, PessoaJuridicaListView
 
 
 urlpatterns = [
-    path('fisica/list/', PessoaFisicaListView.as_view())
+    path('fisica/', include([
+        path('list/', PessoaFisicaListView.as_view(), name='pessoafisica_list'),
+        path('create/', PessoaFisicaCreateView.as_view(), name='pessoafisica_form'),
+    ])),
+
+    path('juridica/', include([
+        path('list/', PessoaJuridicaListView.as_view(), name='pessoajuridica_list'),
+    ])),
 ]
