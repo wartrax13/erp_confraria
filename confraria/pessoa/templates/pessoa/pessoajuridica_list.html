@@ -4,17 +4,6 @@
 <h1>Lista de cadastros</h1>
 {% endblock title %}
 
-
-{% block actions %}
-<a href="{% url 'pessoafisica_form' %}" class="btn btn-success btn-icon-split">
-    <span class="icon text-white-50">
-        <i class="fas fa-plus"></i>
-    </span>
-    <span class="text">Novo Cadastro</span>
-</a>
-{% endblock actions %}
-
-
 {% block content %}
 <div class="card shadow mb-4">
     <div class="card-body">
@@ -22,9 +11,9 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>RG</th>
+                        <th>Nome Fantasia</th>
+                        <th>Razão Social</th>
+                        <th>CNPJ</th>
                         <th>Bairro</th>
                         <th>Logradouro</th>
                         <th>Cidade</th>
@@ -36,8 +25,8 @@
                     {% for pessoa in object_list %}
                         <tr>
                             <td>{{ pessoa.nome }}</td>
-                            <td>{{ pessoa.cpf|default_if_none:'--' }}</td>
-                            <td>{{ pessoa.rg|default_if_none:'--' }}</td>
+                            <td>{{ pessoa.razao_social|default_if_none:'--' }}</td>
+                            <td>{{ pessoa.cnpj|default_if_none:'--' }}</td>
                             <td>{{ pessoa.endereco.bairro|default_if_none:'--' }}</td>
                             <td>{{ pessoa.endereco.logradouro|default_if_none:'--' }}</td>
                             <td>{{ pessoa.endereco.cidade|default_if_none:'--' }}</td>

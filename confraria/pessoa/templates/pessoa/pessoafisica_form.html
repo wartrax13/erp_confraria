@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+<h1>Cadastrar pessoa física</h1>
+{% endblock title %}
+
+{% block content %}
+<form method="POST" class="row col-12">
+    {% csrf_token %}
+    <div class="col-12 row">
+        <div class="col-lg-8">
+            <label class="h5 text-primary" for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+            {% render_field form.nome class="form-control" placeholder="Nome completo" %}
+            <div class="invalid-feedback">
+                {{ form.nome.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.data_nascimento.id_for_label }}">{{ form.data_nascimento.label }}</label>
+            {% render_field form.data_nascimento type="date" class="form-control" %}
+            <div class="invalid-feedback">
+                {{ form.data_nascimento.errors }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label class="h5 text-primary" for="{{ form.cpf.id_for_label }}">{{ form.cpf.label }}</label>
+            {% render_field form.cpf class="form-control" placeholder="xxx.xxx.xxx-xx" %}
+            <div class="invalid-feedback">
+                {{ form.cpf.errors }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label class="h5 text-primary" for="{{ form.rg.id_for_label }}">{{ form.rg.label }}</label>
+            {% render_field form.rg class="form-control" placeholder="xx.xxx.xxx-x" %}
+            <div class="invalid-feedback">
+                {{ form.rg.errors }}
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <label class="h5 text-primary" for="{{ form.observacao.id_for_label }}">{{ form.observacao.label }}</label>
+            {% render_field form.observacao class="form-control" rows="3" placeholder="Observações importantes" %}
+            <div class="invalid-feedback">
+                {{ form.observacao.errors }}
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-lg-6">
+        
+    </div>
+    <div class="col-lg-6">
+
+    </div>
+</form>
+
+{% endblock content %}
+

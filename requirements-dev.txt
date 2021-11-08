@@ -60,6 +60,10 @@ django==3.2.8 \
     # via
     #   -r requirements.txt
     #   model-bakery
+django-widget-tweaks==1.4.9 \
+    --hash=sha256:19bcb66a4a9e68493ced04e7124882d753c5be517ed001556f9e35a40147f545 \
+    --hash=sha256:d6c64fbf92cd2df9031f597c1374982233c05a1190d295c39d1c57ce007569c7
+    # via -r requirements.txt
 iniconfig==1.1.1 \
     --hash=sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3 \
     --hash=sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32
