@@ -33,7 +33,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-box-open"></i>
                 </div>
@@ -61,12 +61,12 @@
 
             <li class="nav-item">
                 {% if request.user.is_authenticated %}
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{% url 'logout' %}">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
                 {% else %}
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{% url 'login' %}">
                     <i class="fas fa-sign-in-alt"></i>
                     <span>Login</span>
                 </a>
@@ -128,7 +128,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span><a href="http://confrariadospretosvelhosdeumbanda.org/">Confraria dos Pretos Velhos de Umbanda</a></span>
+                        <span><a href="/">Confraria</a></span>
                     </div>
                 </div>
             </footer>

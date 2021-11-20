@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Acesse sua conta{% endblock title %}
+{% block content %}
+    
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            {% if form.errors %}
+            <p>Sua conta está errada. Por favor, tente novamente..</p>
+            {% endif %}
+
+            {% if next %}
+            {% if user.is_authenticated %}
+            <p>Sua conta não tem acesso nessa página. Para prosseguir,
+                por favor entre com sua conta.</p>
+            {% else %}
+            <p>Página restrista. Acesse sua conta para ter permissão ou entre em contato.</p>
+            {% endif %}
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+                {{ form.as_p }}
+                {% csrf_token %}
+
+                
+
+                <input type="submit" value="Entrar">
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+
+           
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
