@@ -10,6 +10,15 @@
 <form method="POST" class="row col-12">
     {% csrf_token %}
     <div class="col-12 row">
+        <div class="col-lg-12">
+            <label class="h5 text-primary form-check-label" for="{{ form.ativo.id_for_label }}">{{ form.ativo.label }}</label>
+            <div class="form-check form-check-inline">
+            {% render_field form.ativo class="form-check-input" placeholder="Status" %}
+            </div>
+            <div class="invalid-feedback">
+                {{ form.ativo.errors }}
+            </div>
+        </div>
         <div class="col-lg-8">
             <label class="h5 text-primary" for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
             {% render_field form.nome class="form-control" placeholder="Nome completo" %}
@@ -37,6 +46,58 @@
             <div class="invalid-feedback">
                 {{ form.rg.errors }}
             </div>
+        </div>
+        <div class="col-lg-10">
+            <label class="h5 text-primary" for="{{ form.logradouro.id_for_label }}">{{ form.logradouro.label }}</label>
+            {% render_field form.logradouro class="form-control" placeholder="Rua, Avenida, etc." %}
+            <div class="invalid-feedback">
+                {{ form.logradouro.errors }}
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <label class="h5 text-primary" for="{{ form.numero.id_for_label }}">{{ form.numero.label }}</label>
+            {% render_field form.numero class="form-control" placeholder="Número" %}
+            <div class="invalid-feedback">
+                {{ form.numero.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.complemento.id_for_label }}">{{ form.complemento.label }}</label>
+            {% render_field form.complemento class="form-control" placeholder="Apto, Casa, Fundos, etc." %}
+            <div class="invalid-feedback">
+                {{ form.complemento.errors }}
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <label class="h5 text-primary" for="{{ form.bairro.id_for_label }}">{{ form.bairro.label }}</label>
+            {% render_field form.bairro class="form-control" placeholder="Bairro" %}
+            <div class="invalid-feedback">
+                {{ form.bairro.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.cidade.id_for_label }}">{{ form.cidade.label }}</label>
+            {% render_field form.cidade class="form-control" placeholder="Cidade" %}
+            <div class="invalid-feedback">
+                {{ form.cidade.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.estado.id_for_label }}">{{ form.estado.label }}</label>
+            {% render_field form.estado class="form-control" placeholder="Estado" %}
+            <div class="invalid-feedback">
+                {{ form.estado.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.cep.id_for_label }}">{{ form.cep.label }}</label>
+            {% render_field form.cep class="form-control" placeholder="CEP" %}
+            <div class="invalid-feedback">
+                {{ form.cep.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            {{ formset }}
         </div>
         <div class="col-lg-12">
             <label class="h5 text-primary" for="{{ form.observacao.id_for_label }}">{{ form.observacao.label }}</label>
