@@ -49,23 +49,6 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Endereco(models.Model):
-    logradouro = models.CharField('Logradouro', max_length=128, null=True, blank=True)
-    numero = models.CharField('Número', max_length=8, null=True, blank=True)
-    bairro = models.CharField('Bairro', max_length=128)
-    complemento = models.CharField('Complemento', max_length=128, null=True, blank=True)
-    cidade = models.CharField('Cidade', max_length=128)
-    estado = models.CharField('Estado', max_length=2, choices=EstadoChoices.choices)
-    cep = models.CharField('CEP', max_length=9, null=True, blank=True)
-    
-    class Meta:
-        verbose_name = 'Endereço'
-        verbose_name_plural = 'Endereços'
-
-    def __str__(self):
-        return self.numero  
-
-
 class Pessoa(BaseModel):
     nome = models.CharField('Nome', max_length=128)
     razao_social = models.CharField('Razão Social', max_length=128, null=True, blank=True)
@@ -74,9 +57,17 @@ class Pessoa(BaseModel):
     cpf = models.CharField('CPF', max_length=14, null=True, blank=True, unique=True)
     rg = models.CharField('RG', max_length=12, null=True, blank=True)
     data_nascimento = models.DateField('Data de Nascimento', null=True, blank=True)
-    endereco = models.ForeignKey(Endereco, verbose_name='Endereço', on_delete=models.PROTECT, null=True, blank=True)
     observacao = models.TextField('Observação', max_length=128, null=True, blank=True)
     ativo = models.BooleanField('Ativo', default=True)
+
+    # Endereco
+    logradouro = models.CharField('Logradouro', max_length=128, null=True, blank=True)
+    numero = models.CharField('Número', max_length=8, null=True, blank=True)
+    bairro = models.CharField('Bairro', max_length=128)
+    complemento = models.CharField('Complemento', max_length=128, null=True, blank=True)
+    cidade = models.CharField('Cidade', max_length=128)
+    estado = models.CharField('Estado', max_length=2, choices=EstadoChoices.choices)
+    cep = models.CharField('CEP', max_length=9, null=True, blank=True)
     
 
     class Meta:
