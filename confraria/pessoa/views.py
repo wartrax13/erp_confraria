@@ -3,13 +3,15 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
 from .models import PessoaFisica, PessoaJuridica
 from .forms import PessoaFisicaForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class PessoaFisicaListView(ListView):
+
+class PessoaFisicaListView(LoginRequiredMixin, ListView):
     model = PessoaFisica
     paginate_by = 15
 
 
-class PessoaFisicaCreateView(CreateView):
+class PessoaFisicaCreateView(LoginRequiredMixin, CreateView):
     model = PessoaFisica
     form_class = PessoaFisicaForm
 
@@ -24,7 +26,7 @@ class PessoaFisicaCreateView(CreateView):
         return kwargs
 
 
-class PessoaJuridicaListView(ListView):
+class PessoaJuridicaListView(LoginRequiredMixin, ListView):
     model = PessoaJuridica
     paginate_by = 15
 
