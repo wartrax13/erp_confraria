@@ -18,8 +18,8 @@
 {% block content %}
 <div class="card shadow mb-4">
     <div class="card-body">
-        <div class="table-responsive>
-            <table class="table table-bordered" id="dataTable" cellspacing="0">
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -35,7 +35,9 @@
                 <tbody>
                     {% for pessoa in object_list %}
                         <tr>
-                            <td>{{ pessoa.nome }}</td>
+                            <td>
+                                <a href="{% url 'pessoafisica_form' pk=pessoa.pk %}">{{ pessoa.nome }}</a>
+                            </td>
                             <td>{{ pessoa.cpf|default_if_none:'--' }}</td>
                             <td>{{ pessoa.rg|default_if_none:'--' }}</td>
                             <td>{{ pessoa.logradouro|default_if_none:'--' }}</td>

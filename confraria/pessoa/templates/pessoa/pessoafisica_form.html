@@ -10,6 +10,15 @@
 <form method="POST" class="row col-12">
     {% csrf_token %}
     <div class="col-12 row">
+        <div class="col-lg-12">
+            <label class="h5 text-primary form-check-label" for="{{ form.ativo.id_for_label }}">{{ form.ativo.label }}</label>
+            <div class="form-check form-check-inline">
+            {% render_field form.ativo class="form-check-input" placeholder="Status" %}
+            </div>
+            <div class="invalid-feedback">
+                {{ form.ativo.errors }}
+            </div>
+        </div>
         <div class="col-lg-8">
             <label class="h5 text-primary" for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
             {% render_field form.nome class="form-control" placeholder="Nome completo" %}
@@ -86,6 +95,9 @@
             <div class="invalid-feedback">
                 {{ form.cep.errors }}
             </div>
+        </div>
+        <div class="col-lg-4">
+            {{ formset }}
         </div>
         <div class="col-lg-12">
             <label class="h5 text-primary" for="{{ form.observacao.id_for_label }}">{{ form.observacao.label }}</label>

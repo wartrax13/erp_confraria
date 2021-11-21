@@ -27,6 +27,8 @@ class PessoaFisicaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request_user = kwargs.pop('request_user')
         super().__init__(*args, **kwargs)
+        if self.instance and not self.instance.pk:
+            del self.fields['ativo']
 
     def save(self, commit=True):
         if self.instance and not self.instance.pk:
