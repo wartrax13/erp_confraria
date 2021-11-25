@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Lista de Cadastros a Receber a Cesta</h1>
+{% endblock title %}
+
+
+{% block actions %}
+<a href="{% url 'pessoafisica_form' %}" class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-plus"></i>
+    </span>
+    <span class="text">Novo Produto</span>
+</a>
+{% endblock actions %}
+
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Disponibilidade</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for produto in object_list %}
+                        <tr>
+                            <td>{{ produto.nome|default_if_none:'--' }}</td>
+                            <td>{{ produto.descricao|default_if_none:'--' }}</td>
+                            <td>{{ produto.categoria|default_if_none:'--' }}</td>
+                            <td>{{ produto.disponibilidade|default_if_none:'--' }}</td>
+                            <td>{{ produto.estoque|default_if_none:'--' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer d-flex flex-row-reverse">
+        {% include 'pagination.html' %}
+    </div>
+</div>
+
+
+{% endblock content %}
+

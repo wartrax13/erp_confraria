@@ -25,5 +25,6 @@ urlpatterns = [
     #path('passwordreset/', auth_views.LogoutView.as_view(), name='password_reset'),
     path('admin/', admin.site.urls),
     path('', home),
-    path('pessoa/', include('confraria.pessoa.urls'))
+    path('pessoa/', include('confraria.pessoa.urls')),
+    path('produto/', include('confraria.produto.urls')),
 ]
