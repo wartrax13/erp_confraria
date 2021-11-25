@@ -9,8 +9,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class PessoaFisicaListView(LoginRequiredMixin, ListView):
     model = PessoaFisica
-    paginate_by = 15
-
+    paginate_by = 5
+    # object_list = self.model.objects.all()
+    # def get_queryset(self):
+    #     search = self.request.GET.get('search')
+    #     if search:
+    #         objects = objects.filter(nome__icontains=search)
+    #         return objects
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        name = self.kwargs.get('name', '')
+        object_list = self.model.objects.all()
+        if name:
+            object_list = object_list.filter(name__icontains=name)
+        return object_list
 
 class PessoaFisicaUpdateView(LoginRequiredMixin, UpdateView):
     model = PessoaFisica
