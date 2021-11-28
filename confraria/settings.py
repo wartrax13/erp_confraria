@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     # Aplicações
     'confraria.pessoa',
+    'confraria.produto',
 ]
 
 MIDDLEWARE = [

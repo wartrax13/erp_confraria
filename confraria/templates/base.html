@@ -59,6 +59,23 @@
                 </a>
             </li>
 
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'produto_list' %}">
+                    <i class="fas fa-box-open"></i>
+                    <span>Produtos</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-box-open"></i>
+                    <span>Cestas</span>
+                </a>
+            </li>
+
             <li class="nav-item">
                 {% if request.user.is_authenticated %}
                 <a class="nav-link" href="{% url 'logout' %}">
