@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+<h1>Detalhe do evento</h1>
+{% endblock title %}
+
+
+{% block actions %}
+
+<a href="{% url 'evento_list' %}" class="btn btn-outline-success">Voltar</a>
+{% endblock actions %}
+
+
+{% block content %}
+<h3 class="col-12"> Nome: {{ object.nome }} </h3>
+<h3 class="col-12"> Data: {{ object.data }} </h3>
+<div class="col-12">
+    <form method="POST" class="row col-12">
+        {% csrf_token %}
+
+        <div class="col-lg-6">
+            <label class="h5 text-primary" for="{{ form_doacaoevento.pessoa.id_for_label }}">{{ form_doacaoevento.pessoa.label }}</label>
+            {% render_field form_doacaoevento.pessoa class="form-control" placeholder="Nome fantasia" %}
+            <div class="invalid-feedback">
+                {{ form_doacaoevento.pessoa.errors }}
+            </div>
+            <button type="submit" class="btn btn-success">Incluir pessoa</button> 
+        </div>
+    </form>
+</div>
+<div class="col-12">
+    <table class="table table-bordered" id="dataTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for doacao in object.doacaoevento_set.all %}
+                <tr>
+                    <td>{{ doacao.pessoa.nome }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

@@ -27,4 +27,5 @@ urlpatterns = [
     path('', home),
     path('pessoa/', include('confraria.pessoa.urls')),
     path('produto/', include('confraria.produto.urls')),
+    path('evento/', include('confraria.evento.urls')),
 ]
