@@ -37,4 +37,3 @@ jobs:
           DEBUG: ${{ secrets.DEBUG }}
       run: |
         python manage.py test
-        flake8
