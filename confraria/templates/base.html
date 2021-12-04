@@ -70,12 +70,11 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="{% url 'evento_list' %}">
                     <i class="fas fa-box-open"></i>
-                    <span>Cestas</span>
+                    <span>Eventos</span>
                 </a>
             </li>
-
             <li class="nav-item">
                 {% if request.user.is_authenticated %}
                 <a class="nav-link" href="{% url 'logout' %}">

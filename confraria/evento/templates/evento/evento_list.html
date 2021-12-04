@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Lista de Eventos</h1>
+{% endblock title %}
+
+
+{% block actions %}
+
+{% endblock actions %}
+
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div>
+            <table class="table table-bordered" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for evento in object_list %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'evento_detail' pk=evento.pk %}">{{ evento.nome }}</a>
+                            </td>
+                            <td>{{ evento.data }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer d-flex flex-row-reverse">
+        {% include 'pagination.html' %}
+    </div>
+</div>
+
+
+{% endblock content %}
+

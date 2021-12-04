@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Aplicações
     'confraria.pessoa',
     'confraria.produto',
+    'confraria.evento',
 ]
 
 MIDDLEWARE = [
