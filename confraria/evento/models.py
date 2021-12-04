@@ -1,10 +1,4 @@
 from django.db import models
-# from confraria.produto.models import Categoria
-
-from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
-from weasyprint import HTML
-from django.template.loader import render_to_string
 
 
 class Evento(models.Model):
@@ -18,25 +12,6 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.nome
-
-    def generate_pdf(self, request, obj):
-        html_string = render_to_string('reports/pdf_template.html', {'obj': obj})
-
-        html = HTML(string=html_string)
-        html.write_pdf(target='/tmp/{}.pdf'.format(obj))
-
-        fs = FileSystemStorage('/tmp')
-        with fs.open('{}.pdf'.format(obj)) as pdf:
-            response = HttpResponse(pdf, content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="{}.pdf"'.format(obj)
-            return response
-
-        return response
-
-    generate_pdf.label = 'Gerar PDF'
-    generate_pdf.short_description = 'Clique para gerar o PDF dessa ordem de serviço'
-
-    change_actions = ('generate_pdf',)
 
 
 class DoacaoEvento(models.Model):

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import EventoListView, EventoDetail, receber_doacao
+from .views import EventoListView, EventoDetail, receber_doacao, GerarPdfView
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
         'receber_doacao/evento/<int:evento_pk>/pessoa/<int:pessoa_pk>/',
         receber_doacao, name='receber_doacao'
     ),
+    path('doacoes_pdf/', GerarPdfView.as_view(), name='doacoes_pdf'),
 ]
