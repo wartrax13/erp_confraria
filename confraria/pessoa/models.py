@@ -117,7 +117,7 @@ class PessoaJuridica(Pessoa):
 class Telefone(models.Model):
     numero = models.CharField('Telefone', max_length=128, null=True, blank=True)
     principal = models.BooleanField('Principal', default=False)
-    pessoa = models.ForeignKey('Pessoa', on_delete=models.CASCADE, related_name='pessoas')
+    pessoa = models.ForeignKey('Pessoa', on_delete=models.CASCADE, related_name='telefones')
 
     class Meta:
         verbose_name = 'Telefone'

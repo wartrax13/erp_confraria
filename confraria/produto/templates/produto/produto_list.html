@@ -16,7 +16,7 @@
 
 
 {% block content %}
-<div class="card shadow mb-4">
+<div class="container-fluid card mb-4">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
@@ -49,11 +49,10 @@
             </table>
         </div>
     </div>
-    <div class="card-footer d-flex flex-row-reverse">
+    <div class="card-footer d-flex justify-content-center">
         {% include 'pagination.html' %}
     </div>
 </div>
-
 
 {% endblock content %}
 
