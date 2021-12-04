@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Externos
     'widget_tweaks',
-    'django_object_actions',
     # Aplicações
     'confraria.pessoa',
     'confraria.produto',

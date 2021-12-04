@@ -5,7 +5,6 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from weasyprint import HTML
 from django.template.loader import render_to_string
-# from django_object_actions import DjangoObjectActions
 
 
 class Evento(models.Model):

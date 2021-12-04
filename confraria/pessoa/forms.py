@@ -3,7 +3,22 @@ from .models import PessoaFisica, PessoaJuridica, Telefone
 from django.forms import inlineformset_factory
 
 
-TelefoneFormSet = inlineformset_factory(PessoaFisica, Telefone, fields=('numero',))
+class Telefone1Form(forms.ModelForm):
+    class Meta:
+        model = Telefone
+        fields = [
+            'numero',
+        ]
+
+
+TelefoneFormSet = inlineformset_factory(
+    PessoaFisica,
+    Telefone,
+    form=Telefone1Form,
+    fk_name='pessoa',
+    fields=('numero',),
+    extra=1
+)
 
 
 class PessoaFisicaForm(forms.ModelForm):
@@ -24,6 +39,9 @@ class PessoaFisicaForm(forms.ModelForm):
             'estado',
             'cep',
         ]
+        widgets = {
+            'data_nascimento': forms.DateInput(format='%Y-%m-%d')
+        }
 
     def __init__(self, *args, **kwargs):
         self.request_user = kwargs.pop('request_user')
@@ -35,7 +53,7 @@ class PessoaFisicaForm(forms.ModelForm):
         if self.instance and not self.instance.pk:
             self.instance.criado_por = self.request_user
         self.instance.atualizado_por = self.request_user
-        super().save(commit=commit)
+        return super().save(commit=commit)
 
 
 class PessoaJuridicaForm(forms.ModelForm):
