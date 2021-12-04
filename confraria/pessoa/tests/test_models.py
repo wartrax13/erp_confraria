@@ -27,4 +27,3 @@ def test_pessa_fisica_nao_esta_queryset_filter(pessoa_fisica):
 
 def test_pessa_juridica_nao_esta_queryset_filter(pessoa_juridica):
     assert pessoa_juridica not in PessoaFisica.objects.all()
-

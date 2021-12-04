@@ -1,4 +1,3 @@
-from django.http import request
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
@@ -10,23 +9,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class PessoaFisicaListView(LoginRequiredMixin, ListView):
     model = PessoaFisica
     paginate_by = 5
-    # object_list = self.model.objects.all()
-    # def get_queryset(self):
-    #     search = self.request.GET.get('search')
-    #     if search:
-    #         objects = objects.filter(nome__icontains=search)
-    #         return objects
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        name = self.kwargs.get('name', '')
-        object_list = self.model.objects.all()
-        if name:
-            object_list = object_list.filter(name__icontains=name)
-        return object_list
+
 
 class PessoaFisicaUpdateView(LoginRequiredMixin, UpdateView):
     model = PessoaFisica
     form_class = PessoaFisicaForm
+
     def get_success_url(self):
         return reverse_lazy('pessoafisica_list')
 
@@ -66,7 +54,7 @@ class PessoaFisicaCreateView(LoginRequiredMixin, CreateView):
         if self.request.method in ['POST', 'PUT']:
             kwargs.update({
                 'data': self.request.POST,
-                'files': self.request.FILES, 
+                'files': self.request.FILES,
             })
         if hasattr(self, 'object'):
             kwargs.update({
@@ -75,6 +63,7 @@ class PessoaFisicaCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
 # PESSOA JURÍDICA
+
 
 class PessoaJuridicaListView(LoginRequiredMixin, ListView):
     model = PessoaJuridica
@@ -88,6 +77,7 @@ def home(request):
 class PessoaJuridicaUpdateView(LoginRequiredMixin, UpdateView):
     model = PessoaJuridica
     form_class = PessoaJuridicaForm
+
     def get_success_url(self):
         return reverse_lazy('pessoajuridica_list')
 
@@ -127,10 +117,11 @@ class PessoaJuridicaCreateView(LoginRequiredMixin, CreateView):
         if self.request.method in ['POST', 'PUT']:
             kwargs.update({
                 'data': self.request.POST,
-                'files': self.request.FILES, 
+                'files': self.request.FILES,
             })
         if hasattr(self, 'object'):
             kwargs.update({
                 'instance': self.object,
             })
+
         return kwargs

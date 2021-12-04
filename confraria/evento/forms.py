@@ -1,9 +1,9 @@
 from django import forms
-from .models import Evento, DoacaoEvento
+from .models import DoacaoEvento  # Evento
 
 
 class DoacaoEventoForm(forms.ModelForm):
-    
+
     class Meta:
         model = DoacaoEvento
         fields = ['pessoa']

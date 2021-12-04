@@ -5,15 +5,16 @@ from django.forms import inlineformset_factory
 
 TelefoneFormSet = inlineformset_factory(PessoaFisica, Telefone, fields=('numero',))
 
+
 class PessoaFisicaForm(forms.ModelForm):
     class Meta:
         model = PessoaFisica
         fields = [
-            'nome',  
-            'cpf', 
-            'rg', 
+            'nome',
+            'cpf',
+            'rg',
             'data_nascimento',
-            'observacao', 
+            'observacao',
             'ativo',
             'logradouro',
             'numero',
@@ -44,8 +45,8 @@ class PessoaJuridicaForm(forms.ModelForm):
             'nome',
             'razao_social',
             'responsavel',
-            'cnpj', 
-            'observacao', 
+            'cnpj',
+            'observacao',
             'ativo',
             'logradouro',
             'numero',

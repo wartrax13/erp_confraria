@@ -47,7 +47,7 @@ class Produto(models.Model):
     @property
     def estoque(self):
         return self.total_entrada - self.total_saida
-    
+
     @property
     def disponibilidade(self):
         if self.estoque < 1:

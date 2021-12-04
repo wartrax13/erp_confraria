@@ -4,4 +4,3 @@ from .models import Produto, Categoria, Movimentacao
 admin.site.register(Produto)
 admin.site.register(Categoria)
 admin.site.register(Movimentacao)
-

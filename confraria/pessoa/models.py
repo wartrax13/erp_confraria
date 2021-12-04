@@ -45,6 +45,7 @@ class BaseModel(models.Model):
         on_delete=models.PROTECT,
         related_name="%(app_label)s_%(class)s_atualizadas",
     )
+
     class Meta:
         abstract = True
 
@@ -68,7 +69,6 @@ class Pessoa(BaseModel):
     cidade = models.CharField('Cidade', max_length=128)
     estado = models.CharField('Estado', max_length=2, choices=EstadoChoices.choices)
     cep = models.CharField('CEP', max_length=9, null=True, blank=True)
-    
 
     class Meta:
         verbose_name = 'Pessoa'
@@ -80,7 +80,7 @@ class Pessoa(BaseModel):
 
 class PessoaFisicaManager(models.Manager):
     """
-    Filtra os objetos que retornam de uma queryset. 
+    Filtra os objetos que retornam de uma queryset.
     Os dados que não tiverem CNPJ, são PF.
     """
     def get_queryset(self):
@@ -91,14 +91,14 @@ class PessoaFisica(Pessoa):
     objects = PessoaFisicaManager()
 
     class Meta:
-        proxy = True # É usado como referencia de Pessoa (sem criar uma tabela no banco de dados)
+        proxy = True  # É usado como referencia de Pessoa (sem criar uma tabela no banco de dados)
         verbose_name = 'Pessoa Física'
         verbose_name_plural = 'Pessoas Físicas'
 
 
 class PessoaJuridicaManager(models.Manager):
     """
-    Filtra os objetos que retornam de uma queryset. 
+    Filtra os objetos que retornam de uma queryset.
     Os dados que tiverem CNPJ, são PJ.
     """
     def get_queryset(self):
@@ -109,7 +109,7 @@ class PessoaJuridica(Pessoa):
     objects = PessoaJuridicaManager()
 
     class Meta:
-        proxy = True # É usado como referencia de Pessoa (sem criar uma tabela no banco de dados)
+        proxy = True  # É usado como referencia de Pessoa (sem criar uma tabela no banco de dados)
         verbose_name = 'Pessoa Jurídica'
         verbose_name_plural = 'Pessoas Jurídicas'
 

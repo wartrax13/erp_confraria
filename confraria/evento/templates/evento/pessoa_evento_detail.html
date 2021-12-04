@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+<h1>Detalhe de Cadastro</h1>
+{% endblock title %}
+
+
+{% block actions %}
+
+{% endblock actions %}
+
+{% block content %}
+
+<a href="{% url 'core:cadastro_lista' %}">Voltar</a>
+<h1> {{ object }}
+    <span class="pull-right">
+    <a href="{% url 'pessoafisica_form' object.pk %}">
+        <button type="button" class="btn btn-success">
+            <span class="fa fa-pencil"> Editar </span>
+        </button>
+    </a>
+    <!-- <a href="{% url 'core:deletar_cadastro' object.pk %}">
+        <button type="button" class="btn btn-danger">
+            <span class="fa fa-pencil"> Deletar </span>
+        </button>
+    </a> -->
+    </span>
+</h1>
+<div class="col-sm-6">
+    <table class="table table-user-information">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Logradouro</th>
+                <th>Bairro</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for doacao in object.doacaoevento_set.all %}
+                <tr>
+                    <td>{{ doacao.pessoa.nome }}</td>
+                    <td>{{ doacao.pessoa.cpf }}</td>
+                    <td>{{ doacao.pessoa.logradouro }}</td>
+                    <td>{{ doacao.pessoa.bairro }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

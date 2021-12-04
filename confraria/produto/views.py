@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from .models import Produto
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, TemplateView
+from django.views.generic import ListView, CreateView
 from .forms import ProdutoForm
 from django.urls import reverse_lazy
 
