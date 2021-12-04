@@ -4,8 +4,12 @@
 <h1>Lista de cadastros</h1>
 {% endblock title %}
 
-
 {% block actions %}
+<form class="d-flex">
+    <input class="form-control me-2" id="search" type="text" name="search" placeholder="Nome ou CPF do cadastrado" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Procurar</button>
+</form>
+
 <a href="{% url 'pessoafisica_form' %}" class="btn btn-success btn-icon-split">
     <span class="icon text-white-50">
         <i class="fas fa-plus"></i>
@@ -54,7 +58,6 @@
         {% include 'pagination.html' %}
     </div>
 </div>
-
 
 {% endblock content %}
 
