@@ -1,6 +1,6 @@
 from .models import Produto
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from .forms import ProdutoForm
 from django.urls import reverse_lazy
 
@@ -17,4 +17,10 @@ class ProdutoCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('produto_list')
 
-    # continuar
+
+class ProdutoUpdateView(LoginRequiredMixin, UpdateView):
+    model = Produto
+    form_class = ProdutoForm
+
+    def get_success_url(self):
+        return reverse_lazy('produto_list')

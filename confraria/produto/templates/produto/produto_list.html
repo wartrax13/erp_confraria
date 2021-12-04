@@ -33,7 +33,9 @@
                 <tbody>
                     {% for produto in object_list %}
                         <tr>
-                            <td>{{ produto.nome|default_if_none:'--' }}</td>
+                            <td>
+                                <a href="{% url 'produto_form' pk=produto.pk %}">{{ produto.nome }}</a>
+                            </td>
                             <td>{{ produto.descricao|default_if_none:'--' }}</td>
                             <td>{{ produto.categoria|default_if_none:'--' }}</td>
                             <td>{% if produto.disponibilidade %}
