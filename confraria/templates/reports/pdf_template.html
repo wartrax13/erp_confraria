@@ -1,0 +1,94 @@
+{% load static %}
+
+{% block page_header %}
+
+{% endblock %}
+
+{% block extra_style %}
+<style type="text/css">
+
+    @page {
+        size: 'A4';
+        margin-left: 1cm;
+        margin-right: 1cm;
+        margin-top: 1cm;
+        margin-bottom: 2cm;
+    }
+
+</style>
+{% endblock %}
+<html>
+<head>
+  <title>Gerar ofício</title>
+  <style>
+
+    p {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+    .text-right {
+      text-align: right;
+    }
+    .text-center {
+        text-align: center;
+    }
+
+    #rectangle-top{
+    width:180px;
+    height:40px;
+    position: relative; 
+    left: 530px;
+    
+    border: 4px double rgb(0, 0, 0);
+    }
+    #rectangle-down{
+    width:700px;
+    height:170px;
+    position: relative; 
+    left: 5px;
+    
+    border: 4px double rgb(0, 0, 0);
+    }
+    .imgpos {
+    position: relative; 
+    left: 700px; /* posiciona a 100px para a esquerda */ 
+    top: 70px; /* posiciona a 70px para baixo */
+    }
+    .imgmps2 {
+        position: relative;
+        right: 200px;
+    }
+  </style>
+</head>
+  <body>    
+    <div id="rectangle-top" class="text-right"><h3>Ofício Nº 0001</h3></div>
+    <img src="{% static 'images/logo.png' %}" width="200" height="200" class="imgpos"/>
+    <h3 class="text-center">INSTITUTO CULTURAL CONFRARIA DOS PRETOS VELHOS DE UMBANDA</h3>
+    <h4 class="text-center">CULTURA - EDUCAÇÃO - DIREITOS SOCIAIS - RELIGIÃO</h4>
+    <p><b>Data:</b> 21/12/2021</p>
+    <p>A <b>Cestas básicas - Natal 2021</b></p>
+    </br>
+    <p>Referente à <b>Doação,</b></p>
+    </br>
+    <p>O Instituto Cultural Confraria dos Pretos Velhos de Umbanda vem, através deste, registrar a doação de:</p>
+    </br>
+    <p class="text-left">- 150 frangos</p>
+    <p class="text-left">- 150 Cestas básicas</p>
+  </br>
+  </br>
+    <p class="text-center">Atenciosamente,</p>
+    <p class="text-right">______________________________________</p>
+    <p class="text-right"><b>Evandro C. O. Fernandes e Zilda Fernandes</b></p>
+    <p class="text-right">Tenda de Umbanda Pai Joaquim D'angola e Exú Tiriri</p>
+    <p class="text-right">Instituto Confraria dos Pretos Velhos de Umbanda</p>
+    <p class="text-right">(19) 99776-3731 | tupjaet@hotmail.com</p>
+    </br>
+    <div id="rectangle-down">
+      <h4 class="text-left"> Ofício Nº 0001</h4>
+      <h4 class="text-left"> Data: 21/12/2021</h4>
+      <h4 class="text-right">Recebido </h4>
+      <h4 class="text-right">__________________________</h4>
+    </div>
+
+  </body>
+</html>
