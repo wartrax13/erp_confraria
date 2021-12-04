@@ -7,7 +7,12 @@
 
 
 {% block actions %}
-
+<a href="/" class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-plus"></i>
+    </span>
+    <span class="text">Gerar PDF</span>
+</a>
 <a href="{% url 'evento_list' %}" class="btn btn-outline-success">Voltar</a>
 {% endblock actions %}
 
@@ -34,6 +39,10 @@
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>CPF</th>
+                <th>Logradouro</th>
+                <th>Bairro</th>
+                <th>Blabla</th>
             </tr>
         </thead>
         
@@ -41,6 +50,16 @@
             {% for doacao in object.doacaoevento_set.all %}
                 <tr>
                     <td>{{ doacao.pessoa.nome }}</td>
+                    <td>{{ doacao.pessoa.cpf }}</td>
+                    <td>{{ doacao.pessoa.logradouro }}</td>
+                    <td>{{ doacao.pessoa.bairro }}</td>
+                    <td>
+                        {% if doacao.recebido %}
+                            Entregue
+                        {% else %}
+                            <a href="{% url 'receber_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}">Entregar</a>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

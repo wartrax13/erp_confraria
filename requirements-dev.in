@@ -3,3 +3,4 @@ pip-tools
 pytest-django
 pytest-cov
 model-bakery
+flake8
