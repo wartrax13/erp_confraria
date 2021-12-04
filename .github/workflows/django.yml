@@ -40,3 +40,4 @@ jobs:
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
       run: |
         pytest
+        flake8
