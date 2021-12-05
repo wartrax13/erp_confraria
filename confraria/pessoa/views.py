@@ -12,6 +12,15 @@ class PessoaFisicaListView(LoginRequiredMixin, ListView):
     model = PessoaFisica
     paginate_by = 5
 
+    def get_queryset(self):
+        nome_pessoa = self.request.GET.get('nome')
+        pessoas = PessoaFisica.objects.all()
+
+        if nome_pessoa:
+            pessoas = PessoaFisica.objects.filter(nome__icontains=nome_pessoa)
+
+        return pessoas
+
 
 class PessoaFisicaUpdateView(LoginRequiredMixin, FormsetMixin, UpdateView):
     model = PessoaFisica
@@ -51,6 +60,15 @@ class PessoaFisicaCreateView(LoginRequiredMixin, FormsetMixin, CreateView):
 class PessoaJuridicaListView(LoginRequiredMixin, ListView):
     model = PessoaJuridica
     paginate_by = 15
+
+    def get_queryset(self):
+        nome_pessoa = self.request.GET.get('nome')
+        pessoas = PessoaJuridica.objects.all()
+
+        if nome_pessoa:
+            pessoas = PessoaJuridica.objects.filter(nome__icontains=nome_pessoa)
+
+        return pessoas
 
 
 def home(request):

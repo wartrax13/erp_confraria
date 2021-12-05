@@ -5,11 +5,6 @@
 {% endblock title %}
 
 {% block actions %}
-<form class="d-flex">
-    <input class="form-control me-2" id="search" type="text" name="search" placeholder="Nome ou CPF do cadastrado" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Procurar</button>
-</form>
-
 <a href="{% url 'pessoafisica_form' %}" class="btn btn-success btn-icon-split">
     <span class="icon text-white-50">
         <i class="fas fa-plus"></i>
@@ -21,7 +16,19 @@
 
 {% block content %}
 <div class="container-fluid card mb-4">
+    <hr>
     <div class="card-body">
+        <div class="row-12 col-12">
+            <form method="get" class="d-flex">
+                <div class="row-4 col-4">
+                <input class="form-control me-2" id="search" type="text" name="nome" placeholder="Procure pelo Nome da Pessoa" aria-label="Search" value="{{request.GET.nome}}">
+                </div>
+                <div class="row">
+                <button class="btn btn-outline-success" type="submit">Procurar</button>
+                </div>
+            </form>
+        <div>
+    <hr>
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
                 <thead>
