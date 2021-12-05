@@ -35,14 +35,14 @@
         </div>
         <div class="col-lg-6">
             <label class="h5 text-primary" for="{{ form.cpf.id_for_label }}">{{ form.cpf.label }}</label>
-            {% render_field form.cpf class="form-control" placeholder="xxx.xxx.xxx-xx" %}
+            {% render_field form.cpf|append_attr:"class:mask-cpf form-control" placeholder="xxx.xxx.xxx-xx" %}
             <div class="invalid-feedback">
                 {{ form.cpf.errors }}
             </div>
         </div>
         <div class="col-lg-6">
             <label class="h5 text-primary" for="{{ form.rg.id_for_label }}">{{ form.rg.label }}</label>
-            {% render_field form.rg class="form-control" placeholder="xx.xxx.xxx-x" %}
+            {% render_field form.rg|append_attr:"class:mask-rg form-control" placeholder="xx.xxx.xxx-x" %}
             <div class="invalid-feedback">
                 {{ form.rg.errors }}
             </div>
@@ -91,7 +91,7 @@
         </div>
         <div class="col-lg-4">
             <label class="h5 text-primary" for="{{ form.cep.id_for_label }}">{{ form.cep.label }}</label>
-            {% render_field form.cep class="form-control" placeholder="CEP" %}
+            {% render_field form.cep|append_attr:"class:mask-cep form-control" placeholder="CEP" %}
             <div class="invalid-feedback">
                 {{ form.cep.errors }}
             </div>
