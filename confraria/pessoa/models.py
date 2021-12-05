@@ -56,7 +56,7 @@ class Pessoa(BaseModel):
     responsavel = models.CharField('Responsável', max_length=128, null=True, blank=True)
     cnpj = models.CharField('CNPJ', max_length=18, null=True, blank=True, unique=True)
     cpf = models.CharField('CPF', max_length=14, null=True, blank=True, unique=True)
-    rg = models.CharField('RG', max_length=12, null=True, blank=True)
+    rg = models.CharField('RG', max_length=13, null=True, blank=True)
     data_nascimento = models.DateField('Data de Nascimento', null=True, blank=True)
     observacao = models.TextField('Observação', max_length=128, null=True, blank=True)
     ativo = models.BooleanField('Ativo', default=True)

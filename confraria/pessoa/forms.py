@@ -56,6 +56,18 @@ class PessoaFisicaForm(forms.ModelForm):
         return super().save(commit=commit)
 
 
+# PESSOA JURIDICA
+
+TelefonePessoaJuridicaFormSet = inlineformset_factory(
+    PessoaJuridica,
+    Telefone,
+    form=Telefone1Form,
+    fk_name='pessoa',
+    fields=('numero',),
+    extra=1
+)
+
+
 class PessoaJuridicaForm(forms.ModelForm):
     class Meta:
         model = PessoaJuridica
@@ -85,4 +97,4 @@ class PessoaJuridicaForm(forms.ModelForm):
         if self.instance and not self.instance.pk:
             self.instance.criado_por = self.request_user
         self.instance.atualizado_por = self.request_user
-        super().save(commit=commit)
+        return super().save(commit=commit)
