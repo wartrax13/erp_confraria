@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+<h1>Detalhe da Movimentação</h1>
+{% endblock title %}
+
+
+{% block actions %}
+<a href="{% url 'movimentacao_list' %}" class="btn btn-outline-success">Voltar</a>
+{% endblock actions %}
+
+
+{% block content %}
+<div class="col-sm-6">
+    <table class="table table-user-information">
+        <tbody>
+        <tr>
+            <th class="text-right">Numero</th>
+            <td>{{ object.id }}</td>
+        </tr>
+        <tr>
+            <th class="text-right">Tipo</th>
+            <td>R$ {{ object.tipo }}</td>
+        </tr>
+        <tr>
+            <th class="text-right">Data</th>
+            <td>{{ object.data }}</td>
+        </tr>
+        <tr>
+            <th class="text-right">Quantidade</th>
+            <td>{{ object.quantidade }}</td>
+        </tr>
+        <tr>
+            <th class="text-right">Produto</th>
+            <td>{{ object.produto }}</td>
+        </tr>
+        <tr>
+            <th class="text-right">Pessoa</th>
+            <td>{{ object.pessoa }}</td>
+        </tr>
+        <tr>
+            <th class="text-right">Quantidade atual de {{ object.produto }}(s)</th>
+            <td>999999</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

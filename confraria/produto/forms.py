@@ -1,6 +1,5 @@
 from django import forms
-from .models import Produto
-# from django.forms import inlineformset_factory
+from .models import Produto, Movimentacao
 
 
 class ProdutoForm(forms.ModelForm):
@@ -11,5 +10,16 @@ class ProdutoForm(forms.ModelForm):
             'descricao',
             'categoria',
         ]
-
     # continuar
+
+
+class MovimentacaoForm(forms.ModelForm):
+    class Meta:
+        model = Movimentacao
+        fields = [
+            'tipo',
+            'quantidade',
+            'produto',
+            'pessoa',
+            'data',
+        ]
