@@ -15,7 +15,19 @@
 
 {% block content %}
 <div class="container-fluid card mb-4">
+    <hr>
     <div class="card-body">
+        <div class="row-12 col-12">
+            <form method="get" class="d-flex">
+                <div class="row-4 col-4">
+                <input class="form-control me-2" id="search" type="text" name="nome" placeholder="Procure pelo Nome da Empresa" aria-label="Search" value="{{request.GET.nome}}">
+                </div>
+                <div class="row">
+                <button class="btn btn-outline-success" type="submit">Procurar</button>
+                </div>
+            </form>
+        <div>
+    <hr>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
