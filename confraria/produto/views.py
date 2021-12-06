@@ -41,4 +41,3 @@ class MovimentacaoCreateView(CreateView):
 
 class MovimentacaoDetailView(LoginRequiredMixin, DetailView):
     model = Movimentacao
-
