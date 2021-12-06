@@ -56,23 +56,19 @@ def receber_doacao(request, evento_pk, pessoa_pk):
 class GerarPdfView(View):
     def generate_pdf(self, obj):
         html_string = render_to_string('reports/pdf_template.html', {'obj': obj})
-        link = obj['id']
+        link = obj.nome
         html = HTML(string=html_string)
         html.write_pdf(target=f'/tmp/{link}.pdf')
 
         fs = FileSystemStorage('/tmp')
         with fs.open(f'{link}.pdf') as pdf:
             response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Transfer-Encoding'] = 'binary'
             response['Content-Disposition'] = 'inline; filename="{}.pdf"'.format(link)
+
             return response
 
     def get(self, request, *args, **kwargs):
-
-        obj = {
-            'id': 1,
-            'title': 'Qualquer',
-            'nome': 'Cestas',
-            'data': '21/12/2021'
-        }
+        obj = Evento.objects.get(pk=kwargs['evento_pk'])
         response = self.generate_pdf(obj)
         return response
