@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+<h1>Detalhes do cadastro</h1>
+{% endblock title %}
+
+
+{% block actions %}
+<a href="{% url 'pessoafisica_list' %}" class="btn btn-outline-success">Voltar</a>
+{% endblock actions %}
+
+
+{% block content %}
+<div class="col-sm-6">
+    <table class="table table-user-information">
+        <tbody>
+        <tr>
+            <th class="text-left">Nome</th>
+            <td>{{ object.nome }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">CPF</th>
+            <td>{{ object.cpf }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">RG</th>
+            <td>{{ object.rg }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">Data de nascimento</th>
+            <td>{{ object.data_nascimento }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">Logradouro</th>
+            <td>{{ object.logradouro }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">Número</th>
+            <td>{{ object.numero }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">Bairro</th>
+            <td>{{ object.bairro }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">Observação</th>
+            <td>{{ object.observacao }}</td>
+        </tr>
+
+        <tr>
+            <th class="text-left">Status</th>
+            <td>{% if object.ativo %}
+                <i class="fa fa-check-circle ok"></i>
+            {% else %}
+                <i class="fa fa-minus-circle no"></i>
+            {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

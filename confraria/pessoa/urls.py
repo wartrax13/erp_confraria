@@ -1,7 +1,7 @@
 from django.urls import path
 from django.urls.conf import include
 from .views import (
-    PessoaFisicaCreateView, PessoaFisicaListView, PessoaFisicaUpdateView,
+    PessoaFisicaCreateView, PessoaFisicaListView, PessoaFisicaUpdateView, PessoaFisicaDetailView,
     PessoaJuridicaListView, PessoaJuridicaCreateView, PessoaJuridicaUpdateView
 )
 
@@ -11,6 +11,7 @@ urlpatterns = [
         path('list/', PessoaFisicaListView.as_view(), name='pessoafisica_list'),
         path('create/', PessoaFisicaCreateView.as_view(), name='pessoafisica_form'),
         path('update/<int:pk>/', PessoaFisicaUpdateView.as_view(), name='pessoafisica_form'),
+        path('detail/<int:pk>/', PessoaFisicaDetailView.as_view(), name='pessoafisica_detail'),
     ])),
 
     path('juridica/', include([
