@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, View
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
+from django.utils import timezone
 
 from weasyprint import HTML
 
@@ -40,15 +41,17 @@ def receber_doacao(request, evento_pk, pessoa_pk):
     doacao_evento = DoacaoEvento.objects.get(evento_id=evento_pk, pessoa_id=pessoa_pk)
     doacao_evento.recebido = True
     doacao_evento.save()
+
+    categoria = doacao_evento.evento.categoria
+    produto = categoria.produto_set.first()
+
     Movimentacao.objects.create(
         tipo=TipoMovimentacaoChoices.SAIDA,
         pessoa_id=pessoa_pk,
         quantidade=1,
-        produto_id='produto',
-        data='timezone.now',
+        produto=produto,
+        data=timezone.now()
     )
-
-    categoria = Evento.objects.get(pk=evento_pk) # noqa
 
     return redirect(reverse('evento_detail', kwargs={'pk': evento_pk}))
 

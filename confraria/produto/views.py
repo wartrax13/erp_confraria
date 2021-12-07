@@ -47,6 +47,7 @@ class ProdutoUpdateView(LoginRequiredMixin, UpdateView):
 class MovimentacaoListView(LoginRequiredMixin, ListView):
     model = Movimentacao
     paginate_by = 15
+    ordering = ['-data']
 
 
 class MovimentacaoCreateView(CreateView):
