@@ -23,7 +23,7 @@ class ProdutoListView(LoginRequiredMixin, ListView):
         if produto_disponivel:
             q = q & Q(id__in=objects_id)
 
-        produtos = produtos.filter(q).order_by("-nome_produto")
+        produtos = produtos.filter(q).order_by("nome")
 
         return produtos
 
