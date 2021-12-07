@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+<h1>Nova Movimentação</h1>
+{% endblock title %}
+
+{% block content %}
+<form method="POST" class="row col-12">
+    {% csrf_token %}
+    <div class="col-12 row">
+        <div class="col-lg-8">
+            <label class="h5 text-primary" for="{{ form.tipo.id_for_label }}">{{ form.tipo.label }}</label>
+            {% render_field form.tipo type="date" class="form-control" %}
+            <div class="invalid-feedback">
+                {{ form.tipo.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.quantidade.id_for_label }}">{{ form.quantidade.label }}</label>
+            {% render_field form.quantidade class="form-control" placeholder="Número" %}
+            <div class="invalid-feedback">
+                {{ form.quantidade.errors }}
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <label class="h5 text-primary" for="{{ form.produto.id_for_label }}">{{ form.produto.label }}</label>
+            {% render_field form.produto class="form-control" placeholder="produto do produto" %}
+            <div class="invalid-feedback">
+                {{ form.produto.errors }}
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <label class="h5 text-primary" for="{{ form.pessoa.id_for_label }}">{{ form.pessoa.label }}</label>
+            {% render_field form.pessoa class="form-control" placeholder="pessoa do pessoa" %}
+            <div class="invalid-feedback">
+                {{ form.pessoa.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.data.id_for_label }}">{{ form.data.label }}</label>
+            {% render_field form.data type="date" class="form-control" %}
+            <div class="invalid-feedback">
+                {{ form.data.errors }}
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-lg-6">
+        
+    </div>
+    <div class="col-lg-6">
+
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+</form>
+
+{% endblock content %}
+

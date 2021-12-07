@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% load widget_tweaks %}
 
 
@@ -35,7 +36,7 @@
         </div>
         <div class="col-lg-6">
             <label class="h5 text-primary" for="{{ form.cpf.id_for_label }}">{{ form.cnpj.label }}</label>
-            {% render_field form.cnpj class="form-control" placeholder="xx.xxx.xxx/xxxx-xx" %}
+            {% render_field form.cnpj|append_attr:"class:mask-cnpj form-control" placeholder="xx.xxx.xxx/xxxx-xx" %}
             <div class="invalid-feedback">
                 {{ form.cnpj.errors }}
             </div>
@@ -91,13 +92,10 @@
         </div>
         <div class="col-lg-4">
             <label class="h5 text-primary" for="{{ form.cep.id_for_label }}">{{ form.cep.label }}</label>
-            {% render_field form.cep class="form-control" placeholder="CEP" %}
+            {% render_field form.cep|append_attr:"class:mask-cep form-control" placeholder="CEP" %}
             <div class="invalid-feedback">
                 {{ form.cep.errors }}
             </div>
-        </div>
-        <div class="col-lg-12">
-            {{ formset }}
         </div>
         <div class="col-lg-12">
             <label class="h5 text-primary" for="{{ form.observacao.id_for_label }}">{{ form.observacao.label }}</label>
@@ -107,15 +105,53 @@
             </div>
         </div>
     </div>
-        
     <div class="col-lg-6">
-        
+        {{ formset.management_form }}
+        <h5 class="text-primary" for="{{ form.numero.id_for_label }}">Telefones</h5>
+        <div id="telefones_list" class="row">
+            {% for form in formset %}
+                {{ form.id }}
+                <div class="telefone_item col-lg-7" >
+                    {% render_field form.numero class="form-control" %}
+                    <div class="invalid-feedback">
+                        {{ form.numero.errors }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button id="add_item_id" class="btn  btn-primary">Telefone <i class="fas fa-plus"></i></button>
     </div>
-    <div class="col-lg-6">
-
+    <div class="col-12 my-2 d-flex justify-content-center">
+        <button type="submit" class="btn btn-success">Salvar</button>
     </div>
-    <button type="submit" class="btn btn-success">Salvar</button>
 </form>
 
 {% endblock content %}
 
+{% block extra_js %}
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#add_item_id").click(function(e) {
+            e.preventDefault()
+            let itens = document.querySelectorAll('.telefone_item')
+            let formNum = itens.length
+            let totalForms = document.querySelector("#id_telefones-TOTAL_FORMS")
+            let totalFormNum = parseInt(totalForms.value)
+            let container = document.querySelector("#telefones_list")
+
+            let newForm = itens[formNum-1].cloneNode(true)
+            let formRegex = RegExp(`telefones-(\\d){1}-`,'g')
+
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `telefones-${formNum}-`)
+            container.insertBefore(newForm, null)
+            totalFormNum++
+            totalForms.setAttribute('value', `${totalFormNum}`)
+
+        });
+    });
+
+</script>
+
+{% endblock extra_js %}

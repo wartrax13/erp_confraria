@@ -54,7 +54,7 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'pessoajuridica_list' %}">
-                    <i class="fas fa-users"></i>
+                    <i class="far fa-building"></i>
                     <span>Pessoa Jurídica</span>
                 </a>
             </li>
@@ -70,8 +70,16 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
+                <a class="nav-link" href="{% url 'movimentacao_list' %}">
+                    <i class="fas fa-share-square"></i>
+                    <span>Movimentações</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'evento_list' %}">
-                    <i class="fas fa-box-open"></i>
+                    <i class="fas fa-calendar-check"></i>
                     <span>Eventos</span>
                 </a>
             </li>
@@ -126,7 +134,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     {% block title %}
-                    <h1>Título aqui</h1>
+                    <h1>Título aqui - Testando aqui</h1>
                     {% endblock title %}
                     <div class="row">
                         <!-- Page Heading -->
@@ -190,6 +198,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Mascaras para CPF, CNPJ E CEP-->
+    <script src="{% static 'mask-jquery/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'mask-jquery/jquery.mask.js' %}"></script>
+    <script src="{% static 'mask-jquery/mask.js' %}"></script>
 
     {% block extra_js %}
     {% endblock extra_js %}
