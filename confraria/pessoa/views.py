@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from .forms import PessoaFisicaForm, TelefoneFormSet, PessoaJuridicaForm, TelefonePessoaJuridicaFormSet
 from .mixins import FormsetMixin
@@ -75,8 +76,9 @@ class PessoaJuridicaListView(LoginRequiredMixin, ListView):
         return pessoas
 
 
+@login_required
 def home(request):
-    return render(request, 'base.html')
+    return render(request, 'index.html')
 
 
 class PessoaJuridicaUpdateView(LoginRequiredMixin, FormsetMixin, UpdateView):

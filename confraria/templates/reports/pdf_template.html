@@ -63,26 +63,28 @@
 
   <body>    
     <tbody>
-      {{ obj.nome }}
-    
+  
     </tbody>
     <div id="rectangle-top" class="text-right"><h3>Ofício Nº 0001</h3></div>
     <img src="{% static 'images/logo.png' %}" width="200" height="200" class="imgpos"/>
     <h3 class="text-center">INSTITUTO CULTURAL CONFRARIA DOS PRETOS VELHOS DE UMBANDA</h3>
     <h4 class="text-center">CULTURA - EDUCAÇÃO - DIREITOS SOCIAIS - RELIGIÃO</h4>
-    <p><b>Data:</b> 21/12/2021</p>
-    <p>A <b>Cestas básicas - Natal 2021</b></p>
+    <p><b>Data:</b> {{ obj.data }}</p>
+    <p>Ao evento  <b>{{ obj.nome }}</b></p>
     </br>
     <p>Referente à <b>Doação,</b></p>
     </br>
     <p>O Instituto Cultural Confraria dos Pretos Velhos de Umbanda vem, através deste, registrar a doação de:</p>
     </br>
-    <p class="text-left">- 150 frangos</p>
-    <p class="text-left">- 150 Cestas básicas</p>
+    <ul>
+      {% for produto, dados in obj.get_quantidade_doacao_produtos.items %}
+      <li>{{ dados.0 }} {{ produto }} ({{ dados.1 }})</li>
+      {% endfor %}
+    </ul>
   </br>
   </br>
     <p class="text-center">Atenciosamente,</p>
-    <p class="text-right">______________________________________</p>
+    <p class="text-right">________________________________________________</p>
     <p class="text-right"><b>Evandro C. O. Fernandes e Zilda Fernandes</b></p>
     <p class="text-right">Tenda de Umbanda Pai Joaquim D'angola e Exú Tiriri</p>
     <p class="text-right">Instituto Confraria dos Pretos Velhos de Umbanda</p>

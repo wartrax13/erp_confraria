@@ -28,7 +28,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
+        {% block sidebar %}
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
@@ -107,6 +107,7 @@
 
         </ul>
         <!-- End of Sidebar -->
+        {% endblock sidebar %}
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -134,7 +135,6 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     {% block title %}
-                    <h1>Título aqui - Testando aqui</h1>
                     {% endblock title %}
                     <div class="row">
                         <!-- Page Heading -->
