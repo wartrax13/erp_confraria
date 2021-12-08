@@ -42,9 +42,13 @@
         <tr>
             <th class="text-left">Quantidade atual de {{ object.produto }}(s)</th>
             <td>999999</td>
+            <td>{{ object.produto.estoque }}</td>
         </tr>
         </tbody>
     </table>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Gerar PDF</a>
+
 </div>
 
 {% endblock content %}

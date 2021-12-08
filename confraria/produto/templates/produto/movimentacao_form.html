@@ -40,7 +40,7 @@
         </div>
         <div class="col-lg-4">
             <label class="h5 text-primary" for="{{ form.data.id_for_label }}">{{ form.data.label }}</label>
-            {% render_field form.data type="date" class="form-control" %}
+            {% render_field form.data type="datetime-local" class="form-control" %}
             <div class="invalid-feedback">
                 {{ form.data.errors }}
             </div>
