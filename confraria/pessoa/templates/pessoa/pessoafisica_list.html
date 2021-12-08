@@ -21,9 +21,8 @@
         <div class="row-12 col-12">
             <form method="get" class="d-flex">
                 <div class="row-4 col-4">
-                <input class="form-control me-2" id="search" type="text" name="nome" placeholder="Procure pelo Nome da Pessoa" aria-label="Search" value="{{request.GET.nome}}">
+                <input class="form-control me-2" id="search" type="text" name="dados_pessoa" placeholder="Procure Pessoa pelo Nome, RG ou CPF" aria-label="Search" value="{{request.GET.dados_pessoa}}">
                 </div>
-                <div class="row">
                 <button class="btn btn-outline-success" type="submit">Procurar</button>
                 </div>
             </form>
