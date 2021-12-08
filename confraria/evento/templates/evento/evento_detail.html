@@ -7,12 +7,10 @@
 
 
 {% block actions %}
-<a href="{% url 'doacoes_pdf' %}" class="btn btn-success btn-icon-split">
-    <span class="icon text-white-50">
-        <i class="fas fa-plus"></i>
-    </span>
-    <span class="text">Gerar PDF</span>
-</a>
+
+<a href="{% url 'doacoes_pdf' evento_pk=object.pk %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+<i class="fas fa-download fa-sm text-white-50"></i> Gerar PDF</a>
+
 <a href="{% url 'evento_list' %}" class="btn btn-outline-success">Voltar</a>
 {% endblock actions %}
 
@@ -42,7 +40,7 @@
                 <th>CPF</th>
                 <th>Logradouro</th>
                 <th>Bairro</th>
-                <th>Blabla</th>
+                <th>Ação</th>
             </tr>
         </thead>
         

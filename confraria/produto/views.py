@@ -23,7 +23,7 @@ class ProdutoListView(LoginRequiredMixin, ListView):
         if produto_disponivel:
             q = q & Q(id__in=objects_id)
 
-        produtos = produtos.filter(q).order_by("-nome")
+        produtos = produtos.filter(q).order_by("nome")
 
         return produtos
 
@@ -47,6 +47,7 @@ class ProdutoUpdateView(LoginRequiredMixin, UpdateView):
 class MovimentacaoListView(LoginRequiredMixin, ListView):
     model = Movimentacao
     paginate_by = 15
+    ordering = ['-data']
 
 
 class MovimentacaoCreateView(CreateView):

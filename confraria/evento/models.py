@@ -1,10 +1,11 @@
 from django.db import models
+from confraria.produto.models import Categoria
 
 
 class Evento(models.Model):
     nome = models.CharField('Nome', max_length=128)
     data = models.DateField('Data')
-    # categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = 'Evento'
@@ -12,6 +13,15 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def get_quantidade_doacao_produtos(self):
+        # breakpoint()
+        result = {}
+        produtos = self.categoria.produto_set.all()
+        for produto in produtos:
+            result[produto.nome] = (produto.total_saida, produto.descricao)
+
+        return result
 
 
 class DoacaoEvento(models.Model):
