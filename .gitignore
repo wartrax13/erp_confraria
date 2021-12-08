@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# excel
+*.xlsx#
+/backup/teste_cadastro.xlsx

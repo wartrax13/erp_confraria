@@ -11,7 +11,7 @@ from .models import PessoaFisica, PessoaJuridica
 
 class PessoaFisicaListView(LoginRequiredMixin, ListView):
     model = PessoaFisica
-    paginate_by = 5
+    paginate_by = 15
 
     def get_queryset(self):
         nome_pessoa = self.request.GET.get('nome')
