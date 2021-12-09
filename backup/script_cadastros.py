@@ -2,12 +2,15 @@
 
 from django.contrib.auth.models import User
 from confraria.pessoa.models import Pessoa
-
 import openpyxl
+from pathlib import Path
+
+
+BASE_BACKUP = Path(__file__).resolve().parent
 
 
 wb = openpyxl.load_workbook(
-    filename='/home/pedro/Projetos/erp_confraria/backup/teste_cadastro.xlsx'
+    filename=f'{BASE_BACKUP}/teste_cadastro.xlsx'
     )
 
 for d in wb['Sheet1'].iter_rows(values_only=True):
