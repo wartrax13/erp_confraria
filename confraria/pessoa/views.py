@@ -1,3 +1,5 @@
+import re
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
@@ -11,15 +13,20 @@ from .models import PessoaFisica, PessoaJuridica
 
 class PessoaFisicaListView(LoginRequiredMixin, ListView):
     model = PessoaFisica
-    paginate_by = 5
+    paginate_by = 15
 
     def get_queryset(self):
-        nome_pessoa = self.request.GET.get('nome')
-        pessoas = PessoaFisica.objects.all()
+        dados_pessoa = self.request.GET.get('dados_pessoa')
+        pessoas = super(PessoaFisicaListView, self).get_queryset()
+        q = Q()
 
-        if nome_pessoa:
-            pessoas = PessoaFisica.objects.filter(nome__icontains=nome_pessoa)
+        if dados_pessoa:
+            q = q & Q(nome__icontains=dados_pessoa)
+            cpf_rg = bool(re.search('.', dados_pessoa))
+            if cpf_rg:
+                q = q | (Q(cpf__contains=dados_pessoa) | Q(rg__contains=dados_pessoa))
 
+        pessoas = pessoas.filter(q).order_by("nome")
         return pessoas
 
 
@@ -67,13 +74,18 @@ class PessoaJuridicaListView(LoginRequiredMixin, ListView):
     paginate_by = 15
 
     def get_queryset(self):
-        nome_pessoa = self.request.GET.get('nome')
-        pessoas = PessoaJuridica.objects.all()
+        dados_empresa = self.request.GET.get('dados_empresa')
+        empresas = super(PessoaJuridicaListView, self).get_queryset()
+        q = Q()
 
-        if nome_pessoa:
-            pessoas = PessoaJuridica.objects.filter(nome__icontains=nome_pessoa)
+        if dados_empresa:
+            q = q & Q(nome__icontains=dados_empresa)
+            cnpj = bool(re.search('.', dados_empresa))
+            if cnpj:
+                q = q | Q(cnpj__contains=dados_empresa)
 
-        return pessoas
+        empresas = empresas.filter(q).order_by("nome")
+        return empresas
 
 
 @login_required
