@@ -2,6 +2,10 @@
 
 Projeto criado para sistematizar e facilitar processos relacionados a entrega e recebimentos de doações.
 
+# Ambiente Linux
+python3 -m venv .venv
+source .venv/bin/activate
+
 # Dependencias do sistema
 
 ```bash
@@ -22,6 +26,7 @@ python manage.py createsuperuser
 Entre em contato para obter o arquivo necessário em Excel (teste_cadastro.xlsx)
 Coloque o arquivo dentro da pasta backup/teste_cadastro.xlsx e em seguida:
 
+pip install openpyxl
 python manage.py shell
 from backup import script_cadastros
 
