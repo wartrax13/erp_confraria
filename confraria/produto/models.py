@@ -57,11 +57,21 @@ class Produto(models.Model):
 
 class Movimentacao(models.Model):
     tipo = models.CharField('Tipo', max_length=128, choices=TipoMovimentacaoChoices.choices)
-    quantidade = models.PositiveIntegerField()
-    produto = models.ForeignKey('produto.Produto', on_delete=models.PROTECT)
     pessoa = models.ForeignKey('pessoa.Pessoa', on_delete=models.PROTECT)
     data = models.DateTimeField()
+
+    produtos = models.ManyToManyField(
+        Produto,
+        through='MovimentacaoProduto',
+        through_fields=('movimentacao', 'produto'),
+    )
 
     class Meta:
         verbose_name = 'Movimentação'
         verbose_name_plural = 'Movimentações'
+
+
+class MovimentacaoProduto(models.Model):
+    movimentacao = models.ForeignKey(Movimentacao, on_delete=models.PROTECT)
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    quantidade = models.PositiveSmallIntegerField()
