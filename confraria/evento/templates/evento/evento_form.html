@@ -10,7 +10,7 @@
 <form method="POST" class="row col-12">
     {% csrf_token %}
     <div class="col-12 row">
-        <div class="col-lg-8">
+        <div class="col-lg-5">
             <label class="h5 text-primary" for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
             {% render_field form.nome class="form-control" placeholder="Nome do evento" %}
             <div class="invalid-feedback">
@@ -19,6 +19,7 @@
         </div>
         <div class="col-lg-4">
             <label class="h5 text-primary" for="{{ form.categoria.id_for_label }}">{{ form.categoria.label }}</label>
+            <a href="javascript:newPopup()"><i class="fas fa-plus"></i></a>
             {% render_field form.categoria class="form-control" placeholder="Número" %}
             <div class="invalid-feedback">
                 {{ form.categoria.errors }}

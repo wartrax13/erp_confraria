@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+<h1>Adicionar categoria</h1>
+{% endblock title %}
+
+{% block content %}
+<form method="POST" class="row col-12">
+    {% csrf_token %}
+    <div class="col-12 row">
+        <div class="col-lg-5">
+            <label class="h5 text-primary" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            {% render_field form.name class="form-control" placeholder="Nome da categoria" %}
+            <div class="invalid-feedback">
+                {{ form.name.errors }}
+            </div>
+        </div>
+    </div>
+        
+    <button type="submit" class="btn btn-success">Salvar</button>
+</form>
+
+{% endblock content %}
