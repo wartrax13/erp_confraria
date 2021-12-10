@@ -50,7 +50,7 @@ class MovimentacaoListView(LoginRequiredMixin, ListView):
     ordering = ['-data']
 
 
-class MovimentacaoCreateView(CreateView):
+class MovimentacaoCreateView(LoginRequiredMixin, CreateView):
     model = Movimentacao
     form_class = MovimentacaoForm
 

@@ -6,7 +6,12 @@
 
 
 {% block actions %}
-
+<a href="{% url 'evento_form' %}" class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-plus"></i>
+    </span>
+    <span class="text">Novo evento</span>
+</a>
 {% endblock actions %}
 
 
