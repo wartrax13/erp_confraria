@@ -1,8 +1,8 @@
 from django.db.models import Q
-from .models import Produto, Movimentacao
+from .models import Produto, Movimentacao, Categoria
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from .forms import ProdutoForm, MovimentacaoForm
+from .forms import ProdutoForm, MovimentacaoForm, CategoriaForm
 from django.urls import reverse_lazy
 
 
@@ -60,3 +60,15 @@ class MovimentacaoCreateView(LoginRequiredMixin, CreateView):
 
 class MovimentacaoDetailView(LoginRequiredMixin, DetailView):
     model = Movimentacao
+
+
+class CategoriaCreateView(LoginRequiredMixin, CreateView):
+    model = Categoria
+    form_class = CategoriaForm
+
+    def get_success_url(self):
+        return reverse_lazy('categoria_list')
+
+
+class CategoriaListView(LoginRequiredMixin, ListView):
+    model = Categoria

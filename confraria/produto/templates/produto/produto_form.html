@@ -21,6 +21,7 @@
         </div>
         <div class="col-lg-4">
             <label class="h5 text-primary" for="{{ form.categoria.id_for_label }}">{{ form.categoria.label }}</label>
+            <a href="javascript:newPopup()"><i class="fas fa-plus"></i></a>
             {% render_field form.categoria type="date" class="form-control" %}
             <div class="invalid-feedback">
                 {{ form.categoria.errors }}

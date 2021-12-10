@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Lista de categorias</h1>
+{% endblock title %}
+
+
+{% block actions %}
+<a href="{% url 'categoria_form' %}" class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-plus"></i>
+    </span>
+    <span class="text">Nova categoria</span>
+</a>
+{% endblock actions %}
+
+
+{% block content %}
+<div class="container-fluid card mb-4">
+    <div class="card-body">
+        <div>
+            <table class="table table-bordered" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for categoria in object_list %}
+                        <tr>
+                            <td>{{ categoria.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+        {% include 'pagination.html' %}
+    </div>
+</div>
+
+
+{% endblock content %}
+

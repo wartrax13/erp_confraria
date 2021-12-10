@@ -1,5 +1,5 @@
 from django import forms
-from .models import Produto, Movimentacao
+from .models import Produto, Movimentacao, Categoria
 
 
 class ProdutoForm(forms.ModelForm):
@@ -22,3 +22,9 @@ class MovimentacaoForm(forms.ModelForm):
             'pessoa',
             'data',
         ]
+
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ['name']
