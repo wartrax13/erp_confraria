@@ -1,8 +1,8 @@
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, View
+from django.views.generic import ListView, DetailView, View, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.utils import timezone
@@ -11,12 +11,20 @@ from weasyprint import HTML
 
 from .models import Evento, DoacaoEvento
 from confraria.produto.models import Movimentacao, TipoMovimentacaoChoices
-from .forms import DoacaoEventoForm
+from .forms import DoacaoEventoForm, EventoForm
 
 
 class EventoListView(LoginRequiredMixin, ListView):
     model = Evento
     paginate_by = 15
+
+
+class EventoCreateView(LoginRequiredMixin, CreateView):
+    model = Evento
+    form_class = EventoForm
+
+    def get_success_url(self):
+        return reverse_lazy('evento_list')
 
 
 class EventoDetail(LoginRequiredMixin, DetailView):

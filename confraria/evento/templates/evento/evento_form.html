@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+<h1>Novo Evento</h1>
+{% endblock title %}
+
+{% block content %}
+<form method="POST" class="row col-12">
+    {% csrf_token %}
+    <div class="col-12 row">
+        <div class="col-lg-8">
+            <label class="h5 text-primary" for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+            {% render_field form.nome class="form-control" placeholder="Nome do evento" %}
+            <div class="invalid-feedback">
+                {{ form.nome.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.categoria.id_for_label }}">{{ form.categoria.label }}</label>
+            {% render_field form.categoria class="form-control" placeholder="Número" %}
+            <div class="invalid-feedback">
+                {{ form.categoria.errors }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="h5 text-primary" for="{{ form.data.id_for_label }}">{{ form.data.label }}</label>
+            {% render_field form.data type="date" class="form-control" %}
+            <div class="invalid-feedback">
+                {{ form.data.errors }}
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-lg-6">
+        
+    </div>
+    <div class="col-lg-6">
+
+    </div>
+    <div class="col-12 my-2 d-flex justify-content-center">
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </div>
+</form>
+
+{% endblock content %}
+

@@ -15,7 +15,6 @@ class Evento(models.Model):
         return self.nome
 
     def get_quantidade_doacao_produtos(self):
-        # breakpoint()
         result = {}
         produtos = self.categoria.produto_set.all()
         for produto in produtos:
