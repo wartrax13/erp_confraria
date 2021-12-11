@@ -1,9 +1,11 @@
 from django.db.models import Q
-from .models import Produto, Movimentacao, Categoria
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from .forms import ProdutoForm, MovimentacaoForm, CategoriaForm
 from django.urls import reverse_lazy
+
+from confraria.mixins import FormsetMixin
+from .forms import ProdutoForm, MovimentacaoForm, CategoriaForm, MovimentacaoFormSet
+from .models import Produto, Movimentacao, Categoria
 
 
 class ProdutoListView(LoginRequiredMixin, ListView):
@@ -28,7 +30,7 @@ class ProdutoListView(LoginRequiredMixin, ListView):
         return produtos
 
 
-class ProdutoCreateView(CreateView):
+class ProdutoCreateView(LoginRequiredMixin, CreateView):
     model = Produto
     form_class = ProdutoForm
 
@@ -50,9 +52,18 @@ class MovimentacaoListView(LoginRequiredMixin, ListView):
     ordering = ['-data']
 
 
-class MovimentacaoCreateView(LoginRequiredMixin, CreateView):
+class MovimentacaoCreateView(LoginRequiredMixin, FormsetMixin, CreateView):
     model = Movimentacao
     form_class = MovimentacaoForm
+    formset_class = MovimentacaoFormSet
+
+    def get_formset_kwargs(self):
+        kwargs = super().get_formset_kwargs()
+        form = self.get_form()
+        kwargs['form_kwargs'] = {
+            'tipo': form['tipo'].value()
+        }
+        return kwargs
 
     def get_success_url(self):
         return reverse_lazy('movimentacao_list')

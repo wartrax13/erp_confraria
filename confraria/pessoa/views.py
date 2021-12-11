@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 from .forms import PessoaFisicaForm, TelefoneFormSet, PessoaJuridicaForm, TelefonePessoaJuridicaFormSet
-from .mixins import FormsetMixin
+from confraria.mixins import FormsetMixin
 from .models import PessoaFisica, PessoaJuridica
 
 

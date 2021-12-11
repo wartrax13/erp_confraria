@@ -10,11 +10,9 @@
 <form method="POST" class="row col-12">
     {% csrf_token %}
     <div class="col-12 row">
-        <div class="col-lg-8">
-            <label class="h5 text-primary form-check-label" for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
-            <div class="form-check form-check-inline">
-            {% render_field form.nome class="form-check-input" placeholder="Nome do produto" %}
-            </div>
+        <div class="col-lg-6">
+            <label class="h5 text-primary" for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+            {% render_field form.nome class="form-control" placeholder="Nome do produto" %}
             <div class="invalid-feedback">
                 {{ form.nome.errors }}
             </div>
