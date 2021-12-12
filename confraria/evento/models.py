@@ -27,6 +27,12 @@ class DoacaoEvento(models.Model):
     pessoa = models.ForeignKey('pessoa.Pessoa', on_delete=models.PROTECT)
     evento = models.ForeignKey(Evento, on_delete=models.PROTECT)
     recebido = models.BooleanField(default=False)
+    movimentacao = models.OneToOneField(
+        'produto.MovimentacaoProduto',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
     data_entrega = models.DateTimeField('Data de entrega', null=True, blank=True)
 
     class Meta:

@@ -30,19 +30,21 @@ class Produto(models.Model):
         verbose_name_plural = 'Produtos'
 
     def __str__(self):
+        if self.descricao:
+            return f'{self.nome} ({self.descricao[:10]})'
         return self.nome
 
     @property
     def total_entrada(self):
         return self.movimentacao_set.filter(
             tipo=TipoMovimentacaoChoices.ENTRADA
-        ).aggregate(total=Sum('quantidade')).get('total') or 0
+        ).aggregate(total=Sum('movimentacaoproduto__quantidade')).get('total') or 0
 
     @property
     def total_saida(self):
         return self.movimentacao_set.filter(
             tipo=TipoMovimentacaoChoices.SAIDA
-        ).aggregate(total=Sum('quantidade')).get('total') or 0
+        ).aggregate(total=Sum('movimentacaoproduto__quantidade')).get('total') or 0
 
     @property
     def estoque(self):
@@ -57,7 +59,6 @@ class Produto(models.Model):
 
 class Movimentacao(models.Model):
     tipo = models.CharField('Tipo', max_length=128, choices=TipoMovimentacaoChoices.choices)
-    pessoa = models.ForeignKey('pessoa.Pessoa', on_delete=models.PROTECT)
     data = models.DateTimeField()
 
     produtos = models.ManyToManyField(
@@ -74,4 +75,5 @@ class Movimentacao(models.Model):
 class MovimentacaoProduto(models.Model):
     movimentacao = models.ForeignKey(Movimentacao, on_delete=models.PROTECT)
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    pessoa = models.ForeignKey('pessoa.Pessoa', on_delete=models.PROTECT)
     quantidade = models.PositiveSmallIntegerField()
