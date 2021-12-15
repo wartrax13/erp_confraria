@@ -5,12 +5,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, View, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
-from django.utils import timezone
 
 from weasyprint import HTML
 
 from .models import Evento, DoacaoEvento
-from confraria.produto.models import Movimentacao, TipoMovimentacaoChoices
+from confraria.produto.models import Movimentacao, TipoMovimentacaoChoices, MovimentacaoProduto
 from .forms import DoacaoEventoForm, EventoForm
 
 
@@ -23,6 +22,16 @@ class EventoCreateView(LoginRequiredMixin, CreateView):
     model = Evento
     form_class = EventoForm
 
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        movimentacao = Movimentacao.objects.create(
+            data=form.cleaned_data['data'],
+            tipo=TipoMovimentacaoChoices.SAIDA
+        )
+        form.instance.movimentacao = movimentacao
+        self.object = form.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy('evento_list')
 
@@ -32,7 +41,7 @@ class EventoDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['form_doacaoevento'] = DoacaoEventoForm()
+        context['form_doacaoevento'] = DoacaoEventoForm(evento=self.get_object())
 
         return context
 
@@ -40,8 +49,8 @@ class EventoDetail(LoginRequiredMixin, DetailView):
         form_doacaoevento = DoacaoEventoForm(data=request.POST, evento=self.get_object())
         if form_doacaoevento.is_valid():
             form_doacaoevento.save()
-        else:
-            print('abacate')
+        # else:
+            # messages
         return redirect(reverse('evento_detail', kwargs={'pk': self.get_object().pk}))
 
 
@@ -53,12 +62,11 @@ def receber_doacao(request, evento_pk, pessoa_pk):
     categoria = doacao_evento.evento.categoria
     produto = categoria.produto_set.first()
 
-    Movimentacao.objects.create(
-        tipo=TipoMovimentacaoChoices.SAIDA,
+    MovimentacaoProduto.objects.create(
+        movimentacao=doacao_evento.evento.movimentacao,
         pessoa_id=pessoa_pk,
         quantidade=1,
-        produto=produto,
-        data=timezone.now()
+        produto=produto
     )
 
     return redirect(reverse('evento_detail', kwargs={'pk': evento_pk}))

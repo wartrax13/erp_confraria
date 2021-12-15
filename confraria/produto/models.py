@@ -71,6 +71,10 @@ class Movimentacao(models.Model):
         verbose_name = 'Movimentação'
         verbose_name_plural = 'Movimentações'
 
+    @property
+    def quantidade(self):
+        return self.produtos.aggregate(total=Sum('movimentacaoproduto__quantidade')).get('total') or 0
+
 
 class MovimentacaoProduto(models.Model):
     movimentacao = models.ForeignKey(Movimentacao, on_delete=models.PROTECT)
