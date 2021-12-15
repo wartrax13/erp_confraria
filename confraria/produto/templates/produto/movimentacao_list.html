@@ -38,7 +38,13 @@
                             </td>
                             <td>{{ movimentacao.tipo|default_if_none:'--' }}</td>
                             <td>{{ movimentacao.quantidade|default_if_none:'--'}}</td>
-                            <td>{{ movimentacao.produto|default_if_none:'--' }}</td>
+                            <td>{% for produto in movimentacao.produtos.all %}
+                                    {% ifchanged %}
+                                    | {{produto.nome}}
+                                    {% endifchanged %}
+                                {% endfor %}    
+                            </td>
+                            <!-- <td>{{ movimentacao.produtos.first|default_if_none:'--'}}</td> -->
                             <td>{{ movimentacao.pessoa|default_if_none:'--' }}</td>
                             <td>{{ movimentacao.data|default_if_none:'--' }}</td>
                         </tr>

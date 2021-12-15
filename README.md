@@ -15,6 +15,7 @@ sudo apt install python3-pip python3-cffi python3-brotli libpango-1.0-0 libharfb
 # Pip tools:
 pip-compile --generate-hashes requirements-dev.in
 pip-sync requirements-dev.txt
+pip install openpyxl
 
 # Migrate
 python manage.py migrate
