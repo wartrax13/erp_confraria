@@ -1,14 +1,14 @@
 import re
 from django.db.models import Q
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+
 
 from .forms import PessoaFisicaForm, TelefoneFormSet, PessoaJuridicaForm, TelefonePessoaJuridicaFormSet
 from confraria.mixins import FormsetMixin
 from .models import PessoaFisica, PessoaJuridica
+from confraria.produto.models import Movimentacao
 
 
 class PessoaFisicaListView(LoginRequiredMixin, ListView):
@@ -88,9 +88,13 @@ class PessoaJuridicaListView(LoginRequiredMixin, ListView):
         return empresas
 
 
-@login_required
-def home(request):
-    return render(request, 'index.html')
+class Intro(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(Intro, self).get_context_data(*args, **kwargs)
+        context['id'] = Movimentacao.objects.all().count()
+        return context
 
 
 class PessoaJuridicaUpdateView(LoginRequiredMixin, FormsetMixin, UpdateView):

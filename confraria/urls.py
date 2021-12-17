@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from confraria.pessoa.views import home
+from confraria.pessoa.views import Intro
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -24,7 +24,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     # path('passwordreset/', auth_views.LogoutView.as_view(), name='password_reset'),
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', Intro.as_view(), name='home'),
     path('pessoa/', include('confraria.pessoa.urls')),
     path('produto/', include('confraria.produto.urls')),
     path('evento/', include('confraria.evento.urls')),
