@@ -21,15 +21,15 @@
         </tr>
         <tr>
             <th class="text-left">CPF</th>
-            <td>{{ object.cpf }}</td>
+            <td>{{ object.cpf|default_if_none:'--' }}</td>
         </tr>
         <tr>
             <th class="text-left">RG</th>
-            <td>{{ object.rg }}</td>
+            <td>{{ object.rg|default_if_none:'--' }}</td>
         </tr>
         <tr>
             <th class="text-left">Data de nascimento</th>
-            <td>{{ object.data_nascimento }}</td>
+            <td>{{ object.data_nascimento|default_if_none:'--' }}</td>
         </tr>
         <tr>
             <th class="text-left">Logradouro</th>
@@ -45,7 +45,7 @@
         </tr>
         <tr>
             <th class="text-left">Observação</th>
-            <td>{{ object.observacao }}</td>
+            <td>{{ object.observacao|default_if_none:'--' }}</td>
         </tr>
 
         <tr>
