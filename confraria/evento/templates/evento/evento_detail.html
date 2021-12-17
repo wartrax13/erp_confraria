@@ -38,9 +38,11 @@
             <tr>
                 <th>Nome</th>
                 <th>CPF</th>
+                <th>RG</th>
                 <th>Logradouro</th>
                 <th>Bairro</th>
                 <th>Ação</th>
+                <th>Status</th>
             </tr>
         </thead>
         
@@ -48,15 +50,20 @@
             {% for doacao in object.doacaoevento_set.all %}
                 <tr>
                     <td>{{ doacao.pessoa.nome }}</td>
-                    <td>{{ doacao.pessoa.cpf }}</td>
+                    <td>{{ doacao.pessoa.cpf|default_if_none:'--'  }}</td>
+                    <td>{{ doacao.pessoa.rg|default_if_none:'--'  }}</td>
                     <td>{{ doacao.pessoa.logradouro }}</td>
                     <td>{{ doacao.pessoa.bairro }}</td>
                     <td>
                         {% if doacao.recebido %}
-                            Entregue
+                        <button type="button" class="btn btn-success">OK</button>
+                        <button type="button" class="btn btn-outline-danger">Cancelar</button>
                         {% else %}
-                            <a href="{% url 'receber_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}">Entregar</a>
+                        <a href="{% url 'receber_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-success">Entregar</a>
                         {% endif %}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-danger">Retirar do evento</button>
                     </td>
                 </tr>
             {% endfor %}

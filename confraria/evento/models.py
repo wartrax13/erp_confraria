@@ -36,6 +36,7 @@ class DoacaoEvento(models.Model):
     data_entrega = models.DateTimeField('Data de entrega', null=True, blank=True)
 
     class Meta:
+        ordering = ['recebido']
         verbose_name = 'Doação de Evento'
         verbose_name_plural = 'Doações de Eventos'
         unique_together = ['pessoa', 'evento']

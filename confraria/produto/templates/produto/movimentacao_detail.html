@@ -33,7 +33,12 @@
         </tr>
         <tr>
             <th class="text-left">Produto</th>
-            <td>{{ object.produto }}</td>
+            <td>{% for produto in movimentacao.produtos.all %}
+                {% ifchanged %}
+                {{ produto.nome|join:" // " }}
+                {% endifchanged %}
+            {% endfor %}    
+        </td>
         </tr>
         <tr>
             <th class="text-left">Pessoa</th>
