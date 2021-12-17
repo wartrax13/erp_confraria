@@ -49,7 +49,10 @@
         <tbody>
             {% for doacao in object.doacaoevento_set.all %}
                 <tr>
-                    <td>{{ doacao.pessoa.nome }}</td>
+                    <td>
+                        <a href="{% url 'pessoafisica_detail' pk=doacao.pessoa.pk %}">{{ doacao.pessoa.nome }}</a>
+                    </td>
+                        
                     <td>{{ doacao.pessoa.cpf|default_if_none:'--'  }}</td>
                     <td>{{ doacao.pessoa.rg|default_if_none:'--'  }}</td>
                     <td>{{ doacao.pessoa.logradouro }}</td>
