@@ -44,8 +44,7 @@
                                     {% endifchanged %}
                                 {% endfor %}    
                             </td>
-                            <!-- <td>{{ movimentacao.produtos.first|default_if_none:'--'}}</td> -->
-                            <td>{{ movimentacao.pessoa|default_if_none:'--' }}</td>
+                            <td>{{ movimentacao.pessoa.pessoa.nome|default_if_none:'--' }}</td>
                             <td>{{ movimentacao.data|default_if_none:'--' }}</td>
                         </tr>
                     {% endfor %}

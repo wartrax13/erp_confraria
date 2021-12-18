@@ -32,27 +32,49 @@
             <td>{{ object.quantidade }}</td>
         </tr>
         <tr>
-            <th class="text-left">Produto</th>
-            <td>{% for produto in movimentacao.produtos.all %}
-                {% ifchanged %}
-                {{ produto.nome|join:" // " }}
-                {% endifchanged %}
-            {% endfor %}    
-        </td>
-        </tr>
-        <tr>
             <th class="text-left">Pessoa</th>
             <td>{{ object.pessoa }}</td>
         </tr>
-        <tr>
-            <th class="text-left">Quantidade atual de {{ object.produto }}(s)</th>
-            <td>{{ object.produto.estoque }}</td>
-        </tr>
+      
         </tbody>
     </table>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Gerar PDF</a>
 
+</div>
+<div class="col-sm-6">
+    <tr>
+        <!-- <th class="text-left">Produto(s)</th> -->
+        <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+            
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in object.produtos.all %}
+                <td>
+                    {% ifchanged %}
+                    {{ produto|join:"" }}
+                    {% endifchanged %}
+                </td>
+                <td>
+                    {{ produto.quantidade|default_if_none:'--'}}
+                </td>
+                <td>
+                    Qual
+                </td>
+
+            </tbody>       
+
+                {% endfor %}    
+        </table>
+    </tr>
+    </tbody>
+</table>
+<a href="{% url 'doacoes_movimentacao_pdf' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+<i class="fas fa-download fa-sm text-white-50"></i> Gerar PDF</a>
 </div>
 
 {% endblock content %}

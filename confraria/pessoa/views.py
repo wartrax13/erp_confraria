@@ -88,7 +88,7 @@ class PessoaJuridicaListView(LoginRequiredMixin, ListView):
         return empresas
 
 
-class Intro(TemplateView):
+class Intro(LoginRequiredMixin, TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, *args, **kwargs):
