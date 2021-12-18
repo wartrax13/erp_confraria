@@ -1,4 +1,3 @@
-import re
 from django.db.models.query_utils import Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
@@ -49,7 +48,6 @@ class EventoDetail(LoginRequiredMixin, DetailView):
 
         return context
 
-
     def get_queryset(self):
         dados_pessoa = self.request.GET.get('dados_pessoa')
         pessoas = super(EventoDetail, self).get_queryset()
@@ -62,8 +60,7 @@ class EventoDetail(LoginRequiredMixin, DetailView):
             #     q      = q | (Q(cpf__contains=dados_pessoa) | Q(rg__contains=dados_pessoa))
 
         pessoas = pessoas.filter(q).order_by("nome")
-        return pessoas    
-
+        return pessoas
 
     def post(self, request, *args, **kwargs):
         form_doacaoevento = DoacaoEventoForm(data=request.POST, evento=self.get_object())
