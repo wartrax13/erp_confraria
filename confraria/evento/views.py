@@ -1,9 +1,9 @@
-import re
 from django.db.models.query_utils import Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, View, CreateView
 from django.core.files.storage import FileSystemStorage
@@ -48,7 +48,6 @@ class EventoDetail(LoginRequiredMixin, DetailView):
 
         return context
 
-
     def get_queryset(self):
         dados_pessoa = self.request.GET.get('dados_pessoa')
         pessoas = super(EventoDetail, self).get_queryset()
@@ -61,8 +60,7 @@ class EventoDetail(LoginRequiredMixin, DetailView):
             #     q      = q | (Q(cpf__contains=dados_pessoa) | Q(rg__contains=dados_pessoa))
 
         pessoas = pessoas.filter(q).order_by("nome")
-        return pessoas    
-
+        return pessoas
 
     def post(self, request, *args, **kwargs):
         form_doacaoevento = DoacaoEventoForm(data=request.POST, evento=self.get_object())
@@ -80,15 +78,18 @@ def receber_doacao(request, evento_pk, pessoa_pk):
     categoria = doacao_evento.evento.categoria
     produto = categoria.produto_set.first()
 
-    MovimentacaoProduto.objects.create(
-        movimentacao=doacao_evento.evento.movimentacao,
-        pessoa_id=pessoa_pk,
-        quantidade=1,
-        produto=produto
-    )
+    if produto.estoque > 1:
+        MovimentacaoProduto.objects.create(
+            movimentacao=doacao_evento.evento.movimentacao,
+            pessoa_id=pessoa_pk,
+            quantidade=1,
+            produto=produto
+        )
 
-    doacao_evento.recebido = True
-    doacao_evento.save()
+        doacao_evento.recebido = True
+        doacao_evento.save()
+    else:
+        messages.warning(request, 'Sem estoque para realizar a doação')
 
     return redirect(reverse('evento_detail', kwargs={'pk': evento_pk}))
 
