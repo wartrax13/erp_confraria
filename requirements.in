@@ -7,3 +7,4 @@ gunicorn
 dj_database_url
 dj-static
 psycopg2-binary
+openpyxl
