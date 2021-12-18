@@ -1,3 +1,4 @@
+import re
 from django.db.models.query_utils import Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
@@ -8,10 +9,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, View, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
+from confraria.pessoa.views import PessoaFisicaListView, PessoaJuridicaListView
 
 from weasyprint import HTML
 
 from .models import Evento, DoacaoEvento
+from confraria.pessoa.models import PessoaFisica, PessoaJuridica, Pessoa
 from confraria.produto.models import Movimentacao, TipoMovimentacaoChoices, MovimentacaoProduto
 from .forms import DoacaoEventoForm, EventoForm
 
@@ -48,18 +51,33 @@ class EventoDetail(LoginRequiredMixin, DetailView):
 
         return context
 
+    def filtro_pessoa(self, dados_pessoa):
+        pessoa_fisica = PessoaFisica
+        pessoa_juridica = PessoaJuridica
+        q = Q()
+        q = q & Q(nome__icontains=dados_pessoa)
+        cpf_rg_cnpj = bool(re.search('.', dados_pessoa))
+        
+        if cpf_rg_cnpj:
+            q = q | (Q(cpf__contains=dados_pessoa) | Q(rg__contains=dados_pessoa) | Q(cnpj__contains=dados_pessoa))
+
+        
+        pessoas = pessoa_fisica.objects.filter(q).order_by("nome") or pessoa_juridica.objects.filter(q).order_by("nome")
+        return pessoas
+    
     def get_queryset(self):
         dados_pessoa = self.request.GET.get('dados_pessoa')
         pessoas = super(EventoDetail, self).get_queryset()
         q = Q()
-
+        
         if dados_pessoa:
-            q = q & Q(nome__icontains=dados_pessoa)
-            # cpf_rg = bool(re.search('.', dados_pessoa))
-            # if cpf_rg:
-            #     q      = q | (Q(cpf__contains=dados_pessoa) | Q(rg__contains=dados_pessoa))
-
+            pessoas = pessoas.values()
+            pessoa_fisica_juridica = self.filtro_pessoa(dados_pessoa).values()
+            pessoa_fisica_juridica.filter(doacaoevento=1)
+            q = q & Q(id_pessoa__icontains=dados_pessoa)
+        # breakpoint()
         pessoas = pessoas.filter(q).order_by("nome")
+        
         return pessoas
 
     def post(self, request, *args, **kwargs):

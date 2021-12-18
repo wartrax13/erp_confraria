@@ -2,7 +2,7 @@ from django.urls import path
 from django.urls.conf import include
 from .views import (
     PessoaFisicaCreateView, PessoaFisicaListView, PessoaFisicaUpdateView, PessoaFisicaDetailView,
-    PessoaJuridicaListView, PessoaJuridicaCreateView, PessoaJuridicaUpdateView
+    PessoaJuridicaListView, PessoaJuridicaCreateView, PessoaJuridicaUpdateView, PessoaJuridicaDetailView
 )
 
 
@@ -18,5 +18,6 @@ urlpatterns = [
         path('list/', PessoaJuridicaListView.as_view(), name='pessoajuridica_list'),
         path('create/', PessoaJuridicaCreateView.as_view(), name='pessoajuridica_form'),
         path('update/<int:pk>/', PessoaJuridicaUpdateView.as_view(), name='pessoajuridica_form'),
+        path('detail/<int:pk>/', PessoaJuridicaDetailView.as_view(), name='pessoajuridica_detail'),
     ])),
 ]

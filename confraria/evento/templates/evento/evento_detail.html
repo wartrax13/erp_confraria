@@ -19,71 +19,95 @@
 
 
 {% block content %}
-<h3 class="col-12"> Nome: {{ object.nome }} </h3>
-<h3 class="col-12"> Data: {{ object.data }} </h3>
-<div class="col-6">
-    <form method="POST" class="row col-12">
-        {% csrf_token %}
 
-        <div class="d-flex col-lg-6">
-            <div class="col-8">
-                <label class="h5 text-primary" for="{{ form_doacaoevento.pessoa.id_for_label }}">{{ form_doacaoevento.pessoa.label }}</label>
-                {% render_field form_doacaoevento.pessoa class="form-control" %}
-                <div class="invalid-feedback">
-                    {{ form_doacaoevento.pessoa.errors }}
-                </div>
-            </div>
-            <div class="col-2 mt-4">
-                <button type="submit" class="btn btn-success btn-sm">Incluir pessoa</button> 
-            </div>
-        </div>
-    </form>
+<div class="container-fluid card">
     <div class="card-body">
         <div class="row-12 col-12">
-            <form method="get" class="d-flex">
-                <div class="row-4 col-4">
-                <input class="form-control me-2" id="search" type="text" name="dados_pessoa" placeholder="Procure Pessoa pelo Nome, RG ou CPF" aria-label="Search" value="{{request.GET.dados_pessoa}}">
+            <h3> Nome: {{ object.nome }} </h3>
+            <h3> Data: {{ object.data }} </h3>
+            <div class="row-12 col-12">
+                <label class="h5 text-primary" for="{{ form_doacaoevento.pessoa.id_for_label }}">{{ form_doacaoevento.pessoa.label }}</label>
+            </div>
+            <form method="POST" class="d-flex">
+                {% csrf_token %}
+                <div class="row-2 col-4">
+                    {% render_field form_doacaoevento.pessoa class="form-control" %}
+                    <div class="invalid-feedback">
+                        {{ form_doacaoevento.pessoa.errors }}
+                    </div>
                 </div>
-                <button class="btn btn-outline-success" type="submit">Procurar</button>
+                <div class="row-4 col-4">
+                    <button type="submit" class="btn btn-success">Incluir pessoa fisica/juridica</button> 
                 </div>
             </form>
-        <div>
-</div>
-<div class="col-12">
-    <table class="table table-bordered mt-4" id="dataTable">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>RG</th>
-                <th>Logradouro</th>
-                <th>Bairro</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for doacao in object.doacaoevento_set.all %}
+            <hr>
+            <form method="get" class="d-flex">
+                <div class="row-4 col-4">
+                    <input class="form-control me-2" id="search" type="text" name="dados_pessoa" placeholder="Procure Pessoa pelo Nome, RG, CPF ou CNPJ" aria-label="Search" value="{{request.GET.dados_pessoa}}">
+                </div>
+                <div class="row-4 col-4">
+                    <button class="btn btn-outline-success" type="submit">Procurar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
                 <tr>
-                    <td>
-                        <a href="{% url 'pessoafisica_detail' pk=doacao.pessoa.pk %}">{{ doacao.pessoa.nome }}</a>
-                    </td>
-                        
-                    <td>{{ doacao.pessoa.cpf|default_if_none:'--'  }}</td>
-                    <td>{{ doacao.pessoa.rg|default_if_none:'--'  }}</td>
-                    <td>{{ doacao.pessoa.logradouro }}</td>
-                    <td>{{ doacao.pessoa.bairro }}</td>
-                    <td>
-                        {% if doacao.recebido %}
-                        <a href="{% url 'cancelar_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Cancelar</a>
-                        {% else %}
-                        <a href="{% url 'receber_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-success">Entregar</a>
-                        <a href="{% url 'remover_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Remover do evento</a>
-                        {% endif %}
-                    </td>
+                    <th>Nome</th>
+                    <th>CPF/CNPJ</th>
+                    <th>RG</th>
+                    <th>Logradouro</th>
+                    <th>Bairro</th>
+                    <th>Ação</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for doacao in object.doacaoevento_set.all %}
+                    {% if doacao.pessoa.cpf%}
+                    <tr>
+                        <td>
+                            <a href="{% url 'pessoafisica_detail' pk=doacao.pessoa.pk %}">{{ doacao.pessoa.nome }}</a>
+                        </td>
+                            
+                        <td>{{ doacao.pessoa.cpf|default_if_none:'--'  }}</td>
+                        <td>{{ doacao.pessoa.rg|default_if_none:'--'  }}</td>
+                        <td>{{ doacao.pessoa.logradouro }}</td>
+                        <td>{{ doacao.pessoa.bairro }}</td>
+                        <td>
+                            {% if doacao.recebido %}
+                            <a href="{% url 'cancelar_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Cancelar</a>
+                            {% else %}
+                            <a href="{% url 'receber_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-success">Entregar</a>
+                            <a href="{% url 'remover_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Remover do evento</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {%else%}
+                    <tr>
+                        <td>
+                            <a href="{% url 'pessoajuridica_detail' pk=doacao.pessoa.pk %}">{{ doacao.pessoa.nome }}</a>
+                        </td>
+                            
+                        <td>{{ doacao.pessoa.cnpj|default_if_none:'--'  }}</td>
+                        <td>{{ doacao.pessoa.rg|default_if_none:'--'  }}</td>
+                        <td>{{ doacao.pessoa.logradouro }}</td>
+                        <td>{{ doacao.pessoa.bairro }}</td>
+                        <td>
+                            {% if doacao.recebido %}
+                            <a href="{% url 'cancelar_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Cancelar</a>
+                            {% else %}
+                            <a href="{% url 'receber_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-success">Entregar</a>
+                            <a href="{% url 'remover_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Remover do evento</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {%endif%}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock content %}
