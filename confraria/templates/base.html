@@ -113,10 +113,8 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -136,6 +134,17 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    {% if messages %}
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            {% for message in messages %}
+                                <div class="alert alert-warning" role="alert">
+                                    <p>{{ message }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                     {% block title %}
                     {% endblock title %}
                     <div class="row">

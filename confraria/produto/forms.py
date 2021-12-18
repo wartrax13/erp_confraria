@@ -1,5 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
+from django.forms.models import BaseInlineFormSet
 
 from .models import MovimentacaoProduto, Produto, Movimentacao, TipoMovimentacaoChoices, Categoria
 
@@ -24,10 +26,26 @@ class MovimentacaoProdutoForm(forms.ModelForm):
         return value
 
 
+class BaseMovimentacaoFormSet(BaseInlineFormSet):
+    def clean(self):
+        qtd_total = {}
+        tipo = self.forms[0].tipo
+        for form in self.forms:
+            try:
+                qtd_total[form.cleaned_data['produto'].pk] += form.cleaned_data['quantidade']
+            except KeyError:
+                qtd_total[form.cleaned_data['produto'].pk] = form.cleaned_data['quantidade']
+        for produto_pk, quantidade in qtd_total.items():
+            produto = Produto.objects.get(pk=produto_pk)
+            if tipo == TipoMovimentacaoChoices.SAIDA and produto.estoque < quantidade:
+                raise ValidationError('Sem estoque para operação')
+
+
 MovimentacaoFormSet = inlineformset_factory(
     Movimentacao,
     MovimentacaoProduto,
     form=MovimentacaoProdutoForm,
+    formset=BaseMovimentacaoFormSet,
     fk_name='movimentacao',
     fields=('produto', 'quantidade', 'pessoa'),
     extra=1
