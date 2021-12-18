@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, View, CreateView
 from django.core.files.storage import FileSystemStorage
@@ -80,15 +81,18 @@ def receber_doacao(request, evento_pk, pessoa_pk):
     categoria = doacao_evento.evento.categoria
     produto = categoria.produto_set.first()
 
-    MovimentacaoProduto.objects.create(
-        movimentacao=doacao_evento.evento.movimentacao,
-        pessoa_id=pessoa_pk,
-        quantidade=1,
-        produto=produto
-    )
+    if produto.estoque > 1:
+        MovimentacaoProduto.objects.create(
+            movimentacao=doacao_evento.evento.movimentacao,
+            pessoa_id=pessoa_pk,
+            quantidade=1,
+            produto=produto
+        )
 
-    doacao_evento.recebido = True
-    doacao_evento.save()
+        doacao_evento.recebido = True
+        doacao_evento.save()
+    else:
+        messages.warning(request, 'Sem estoque para realizar a doação')
 
     return redirect(reverse('evento_detail', kwargs={'pk': evento_pk}))
 

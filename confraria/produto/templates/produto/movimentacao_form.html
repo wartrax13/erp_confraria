@@ -7,6 +7,11 @@
 {% endblock title %}
 
 {% block content %}
+{% if formset.non_form_errors %}
+<div class="alert alert-warning col-12" role="alert">
+    <p>{{ formset.non_form_errors }}</p>
+</div>
+{% endif %}
 <form method="POST" class="row col-12">
     {% csrf_token %}
     <div class="col-12 row">
