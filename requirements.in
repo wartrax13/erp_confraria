@@ -2,3 +2,4 @@ Django
 python-decouple
 django-widget-tweaks
 weasyprint
+django-select2

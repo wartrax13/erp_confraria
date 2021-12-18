@@ -170,7 +170,19 @@ django==3.2.8 \
     --hash=sha256:f6d2c4069c9b9bfac03bedff927ea1f9e0d29e34525cec8a68fd28eb2a8df7af
     # via
     #   -r requirements.txt
+    #   django-appconf
+    #   django-select2
     #   model-bakery
+django-appconf==1.0.5 \
+    --hash=sha256:ae9f864ee1958c815a965ed63b3fba4874eec13de10236ba063a788f9a17389d \
+    --hash=sha256:be3db0be6c81fa84742000b89a81c016d70ae66a7ccb620cdef592b1f1a6aaa4
+    # via
+    #   -r requirements.txt
+    #   django-select2
+django-select2==7.9.0 \
+    --hash=sha256:40d42643b459f79c31598fa5645f5f7e8edda8350a78761ab6c06105ca588872 \
+    --hash=sha256:4494cf5fa13333ddbd34e4dbeca4b44a22ed6367342cccd24f6f122f6ef4a20b
+    # via -r requirements.txt
 django-widget-tweaks==1.4.9 \
     --hash=sha256:19bcb66a4a9e68493ced04e7124882d753c5be517ed001556f9e35a40147f545 \
     --hash=sha256:d6c64fbf92cd2df9031f597c1374982233c05a1190d295c39d1c57ce007569c7

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, View, CreateView
 from django.core.files.storage import FileSystemStorage
@@ -54,10 +55,9 @@ class EventoDetail(LoginRequiredMixin, DetailView):
         return redirect(reverse('evento_detail', kwargs={'pk': self.get_object().pk}))
 
 
+@login_required
 def receber_doacao(request, evento_pk, pessoa_pk):
     doacao_evento = DoacaoEvento.objects.get(evento_id=evento_pk, pessoa_id=pessoa_pk)
-    doacao_evento.recebido = True
-    doacao_evento.save()
 
     categoria = doacao_evento.evento.categoria
     produto = categoria.produto_set.first()
@@ -69,6 +69,35 @@ def receber_doacao(request, evento_pk, pessoa_pk):
         produto=produto
     )
 
+    doacao_evento.recebido = True
+    doacao_evento.save()
+
+    return redirect(reverse('evento_detail', kwargs={'pk': evento_pk}))
+
+
+@login_required
+def remover_doacao(request, evento_pk, pessoa_pk):
+    doacao_evento = DoacaoEvento.objects.get(evento_id=evento_pk, pessoa_id=pessoa_pk)
+    doacao_evento.delete()
+    return redirect(reverse('evento_detail', kwargs={'pk': evento_pk}))
+
+
+@login_required
+def cancelar_doacao(request, evento_pk, pessoa_pk):
+    doacao_evento = DoacaoEvento.objects.get(evento_id=evento_pk, pessoa_id=pessoa_pk)
+
+    categoria = doacao_evento.evento.categoria
+    produto = categoria.produto_set.first()
+
+    movimentacao_produto = MovimentacaoProduto.objects.get(
+        movimentacao=doacao_evento.evento.movimentacao,
+        pessoa_id=pessoa_pk,
+        produto=produto,
+    )
+    movimentacao_produto.delete()
+
+    doacao_evento.recebido = False
+    doacao_evento.save()
     return redirect(reverse('evento_detail', kwargs={'pk': evento_pk}))
 
 
