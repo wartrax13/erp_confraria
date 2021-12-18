@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,33 +12,34 @@
     <meta name="author" content="">
 
     <title>ERP Confraria</title>
-
+    
     <!-- Custom fonts for this template-->
     <script src="https://kit.fontawesome.com/d1298370ad.js" crossorigin="anonymous"></script>
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+    
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
-
+    
     {% block extra_css %}
     {% endblock extra_css %}
 </head>
 
 <body id="page-top" class="sidebar-toggled">
-
+    
     <!-- Page Wrapper -->
     <div id="wrapper">
         {% block sidebar %}
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
-
+            
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-box-open"></i>
+                    <!-- <i class="fas fa-box-open"></i> -->
+                    <img src="{% static 'images/logo.png' %}" width="80" height="70">
                 </div>
                 <div class="sidebar-brand-text mx-3">ERP Confraria</div>
             </a>
