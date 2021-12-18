@@ -5,6 +5,9 @@
 <h1>Detalhe do evento</h1>
 {% endblock title %}
 
+{% block extra_css %}
+    {{ form_doacaoevento.media.css }}
+{% endblock extra_css %}
 
 {% block actions %}
 
@@ -22,18 +25,22 @@
     <form method="POST" class="row col-12">
         {% csrf_token %}
 
-        <div class="col-lg-6">
-            <label class="h5 text-primary" for="{{ form_doacaoevento.pessoa.id_for_label }}">{{ form_doacaoevento.pessoa.label }}</label>
-            {% render_field form_doacaoevento.pessoa class="form-control" placeholder="Nome fantasia" %}
-            <div class="invalid-feedback">
-                {{ form_doacaoevento.pessoa.errors }}
+        <div class="d-flex col-lg-6">
+            <div class="col-8">
+                <label class="h5 text-primary" for="{{ form_doacaoevento.pessoa.id_for_label }}">{{ form_doacaoevento.pessoa.label }}</label>
+                {% render_field form_doacaoevento.pessoa class="form-control" %}
+                <div class="invalid-feedback">
+                    {{ form_doacaoevento.pessoa.errors }}
+                </div>
             </div>
-            <button type="submit" class="btn btn-success">Incluir pessoa</button> 
+            <div class="col-2 mt-4">
+                <button type="submit" class="btn btn-success btn-sm">Incluir pessoa</button> 
+            </div>
         </div>
     </form>
 </div>
 <div class="col-12">
-    <table class="table table-bordered" id="dataTable">
+    <table class="table table-bordered mt-4" id="dataTable">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -42,10 +49,8 @@
                 <th>Logradouro</th>
                 <th>Bairro</th>
                 <th>Ação</th>
-                <th>Status</th>
             </tr>
         </thead>
-        
         <tbody>
             {% for doacao in object.doacaoevento_set.all %}
                 <tr>
@@ -59,14 +64,11 @@
                     <td>{{ doacao.pessoa.bairro }}</td>
                     <td>
                         {% if doacao.recebido %}
-                        <button type="button" class="btn btn-success">OK</button>
-                        <button type="button" class="btn btn-outline-danger">Cancelar</button>
+                        <a href="{% url 'cancelar_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Cancelar</a>
                         {% else %}
                         <a href="{% url 'receber_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-success">Entregar</a>
+                        <a href="{% url 'remover_doacao' evento_pk=doacao.evento.pk pessoa_pk=doacao.pessoa.pk %}" class="btn btn-outline-danger">Remover do evento</a>
                         {% endif %}
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-danger">Retirar do evento</button>
                     </td>
                 </tr>
             {% endfor %}
@@ -75,3 +77,7 @@
 </div>
 
 {% endblock content %}
+
+{% block extra_js %}
+    {{ form_doacaoevento.media.js }}
+{% endblock extra_js %}

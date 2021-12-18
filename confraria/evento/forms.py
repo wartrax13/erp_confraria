@@ -1,4 +1,7 @@
 from django import forms
+
+from django_select2.forms import ModelSelect2Widget
+
 from .models import DoacaoEvento, Evento
 from confraria.pessoa.models import Pessoa
 
@@ -8,6 +11,17 @@ class DoacaoEventoForm(forms.ModelForm):
     class Meta:
         model = DoacaoEvento
         fields = ['pessoa']
+        widgets = {
+            'pessoa': ModelSelect2Widget(
+                model=Pessoa,
+                search_fields=[
+                    'nome__icontains',
+                    'cnpj__icontains',
+                    'cpf__icontains',
+                    'rg__icontains',
+                ]
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         self.evento = kwargs.pop('evento', None)
