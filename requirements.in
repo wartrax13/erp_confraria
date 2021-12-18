@@ -4,3 +4,6 @@ django-widget-tweaks
 weasyprint
 django-select2
 gunicorn
+dj_database_url
+dj-static
+psycopg2-binary
