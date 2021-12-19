@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
-<h1>Detalhe do evento</h1>
+<h1>Evento</h1>
 {% endblock title %}
 
 {% block extra_css %}
@@ -56,7 +56,11 @@
             <thead>
                 <tr>
                     <th>Nome</th>
+<<<<<<< HEAD
                     <th>CPF/CNPJ</th>
+=======
+                    <th>CPF</th>
+>>>>>>> main
                     <th>RG</th>
                     <th>Logradouro</th>
                     <th>Bairro</th>
@@ -65,7 +69,10 @@
             </thead>
             <tbody>
                 {% for doacao in object.doacaoevento_set.all %}
+<<<<<<< HEAD
                     {% if doacao.pessoa.cpf%}
+=======
+>>>>>>> main
                     <tr>
                         <td>
                             <a href="{% url 'pessoafisica_detail' pk=doacao.pessoa.pk %}">{{ doacao.pessoa.nome }}</a>
@@ -84,6 +91,7 @@
                             {% endif %}
                         </td>
                     </tr>
+<<<<<<< HEAD
                     {%else%}
                     <tr>
                         <td>
@@ -104,6 +112,8 @@
                         </td>
                     </tr>
                     {%endif%}
+=======
+>>>>>>> main
                 {% endfor %}
             </tbody>
         </table>
