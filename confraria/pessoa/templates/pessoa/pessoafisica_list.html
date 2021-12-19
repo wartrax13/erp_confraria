@@ -23,10 +23,11 @@
                 <div class="row-4 col-4">
                 <input class="form-control me-2" id="search" type="text" name="dados_pessoa" placeholder="Procure Pessoa pelo Nome, RG ou CPF" aria-label="Search" value="{{request.GET.dados_pessoa}}">
                 </div>
-                <button class="btn btn-outline-success" type="submit">Procurar</button>
+                <div class="row-2">
+                    <button class="btn btn-outline-success" type="submit">Procurar</button>
                 </div>
             </form>
-        <div>
+        </div>
     <hr>
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
