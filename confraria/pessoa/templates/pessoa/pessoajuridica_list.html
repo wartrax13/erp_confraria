@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<h1>Lista de cadastros</h1>
+<h1>Cadastros de Pessoas Jurídicas</h1>
 {% endblock title %}
 
 {% block actions %}
@@ -22,8 +22,8 @@
                 <div class="row-4 col-4">
                     <input class="form-control me-2" id="search" type="text" name="dados_empresa" placeholder="Procure a Empresa pelo Nome ou CNPJ" aria-label="Search" value="{{request.GET.dados_empresa}}">
                 </div>
-                <div class="row">
-                <button class="btn btn-outline-success" type="submit">Procurar</button>
+                <div class="row-2">
+                    <button class="btn btn-outline-success" type="submit">Procurar</button>
                 </div>
             </form>
         <div>
