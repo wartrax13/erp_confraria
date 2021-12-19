@@ -24,8 +24,8 @@
                         <th>Id</th>
                         <th>Tipo</th>
                         <th>Quantidade</th>
-                        <th>Produto</th>
-                        <th>Pessoa</th>
+                        <th>Produtos Envolvidos</th>
+                        <th>Pessoas Envolvidas</th>
                         <th>Data</th>
                     </tr>
                 </thead>
@@ -38,14 +38,9 @@
                             </td>
                             <td>{{ movimentacao.tipo|default_if_none:'--' }}</td>
                             <td>{{ movimentacao.quantidade|default_if_none:'--'}}</td>
-                            <td>{% for produto in movimentacao.produtos.all %}
-                                    {% ifchanged %}
-                                    | {{produto.nome}}
-                                    {% endifchanged %}
-                                {% endfor %}    
-                            </td>
+                            <td>{{ movimentacao.produtos_envolvidos|join:', ' }}</td>
                             <!-- <td>{{ movimentacao.produtos.first|default_if_none:'--'}}</td> -->
-                            <td>{{ movimentacao.pessoa|default_if_none:'--' }}</td>
+                            <td>{{ movimentacao.pessoas_envolvidas|join:', ' }}</td>
                             <td>{{ movimentacao.data|default_if_none:'--' }}</td>
                         </tr>
                     {% endfor %}
