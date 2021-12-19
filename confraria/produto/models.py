@@ -75,6 +75,18 @@ class Movimentacao(models.Model):
     def quantidade(self):
         return self.produtos.aggregate(total=Sum('movimentacaoproduto__quantidade')).get('total') or 0
 
+    @property
+    def pessoas_envolvidas(self):
+        return self.movimentacaoproduto_set.order_by(
+            'pessoa__nome'
+        ).distinct().values_list('pessoa__nome', flat=True)
+
+    @property
+    def produtos_envolvidos(self):
+        return self.movimentacaoproduto_set.order_by(
+            'produto__nome'
+        ).distinct().values_list('produto__nome', flat=True)
+
 
 class MovimentacaoProduto(models.Model):
     movimentacao = models.ForeignKey(Movimentacao, on_delete=models.PROTECT)
