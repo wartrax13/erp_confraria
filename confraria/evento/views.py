@@ -42,25 +42,24 @@ class EventoCreateView(LoginRequiredMixin, CreateView):
 class EventoDetail(LoginRequiredMixin, DetailView):
     model = Evento
 
+    def get_pessoas_doacao(self):
+        search = self.request.GET.get('q')
+        pessoas_doacao = self.get_object().doacaoevento_set.all()
+        if search:
+            q = (
+                Q(pessoa__nome__icontains=search) |
+                Q(pessoa__cpf__icontains=search) |
+                Q(pessoa__rg__icontains=search) |
+                Q(pessoa__cnpj__icontains=search)
+            )
+            pessoas_doacao = pessoas_doacao.filter(q)
+        return pessoas_doacao
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['form_doacaoevento'] = DoacaoEventoForm(evento=self.get_object())
-
+        context['pessoas_doacao'] = self.get_pessoas_doacao()
         return context
-
-    def get_queryset(self):
-        dados_pessoa = self.request.GET.get('dados_pessoa')
-        pessoas = super(EventoDetail, self).get_queryset()
-        q = Q()
-
-        if dados_pessoa:
-            q = q & Q(nome__icontains=dados_pessoa)
-            # cpf_rg = bool(re.search('.', dados_pessoa))
-            # if cpf_rg:
-            #     q      = q | (Q(cpf__contains=dados_pessoa) | Q(rg__contains=dados_pessoa))
-
-        pessoas = pessoas.filter(q).order_by("nome")
-        return pessoas
 
     def post(self, request, *args, **kwargs):
         form_doacaoevento = DoacaoEventoForm(data=request.POST, evento=self.get_object())

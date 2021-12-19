@@ -43,7 +43,7 @@
             <hr>
             <form method="get" class="d-flex">
                 <div class="row-4 col-4">
-                    <input class="form-control me-2" id="search" type="text" name="dados_pessoa" placeholder="Procure Pessoa pelo Nome, RG ou CPF" aria-label="Search" value="{{request.GET.dados_pessoa}}">
+                    <input class="form-control me-2" id="search" type="text" name="q" placeholder="Procure Pessoa pelo Nome, RG ou CPF" aria-label="Search" value="{{request.GET.dados_pessoa}}">
                 </div>
                 <div class="row-4 col-4">
                     <button class="btn btn-outline-success" type="submit">Procurar</button>
@@ -64,7 +64,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for doacao in object.doacaoevento_set.all %}
+                {% for doacao in pessoas_doacao %}
                     <tr>
                         <td>
                             <a href="{% url 'pessoafisica_detail' pk=doacao.pessoa.pk %}">{{ doacao.pessoa.nome }}</a>
