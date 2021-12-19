@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
-<h1>Detalhe do evento</h1>
+<h1>Evento</h1>
 {% endblock title %}
 
 {% block extra_css %}
@@ -19,8 +19,8 @@
 
 
 {% block content %}
-<h3 class="col-12"> Nome: {{ object.nome }} </h3>
-<h3 class="col-12"> Data: {{ object.data }} </h3>
+<h3 class="col-12"> {{ object.nome }} </h3>
+<h3 class="col-12"> {{ object.data }} </h3>
 <div class="col-6">
     <form method="POST" class="row col-12">
         {% csrf_token %}
