@@ -1,9 +1,5 @@
 {% load static %}
 
-{% block page_header %}
-
-{% endblock %}
-
 {% block extra_style %}
 <style type="text/css">
 
@@ -52,7 +48,6 @@
         <div class="card border-dark mb-4">
           <h3 class="text-center">Ofício Nº 00{{ obj.id }}</h3>
         </div>
-
       </div>
       
     </div>
@@ -63,17 +58,44 @@
         <p class="text-center">Rua Evaristo Jacon, 424, Parque Res. Manoel Simão Levy - Limeira, SP</p>
         <p class="text-center">(19) 99855-6009 | contato@confrariadospretosvelhosdeumbanda.org</p>
     </div>
+    <p><b>{{ obj.data }}</b></p>
   </br>
-</br>
-    <p class="text-left"><b>{{ obj.data }}</b></p>
-  </br>
-    <p>Por intermédio do evento <b>{{ obj.nome }}</b>, o Instituto Cultural Confraria dos Pretos Velhos de Umbanda vem, através deste, registrar a doação de:</p>
-    </br>
-    <ul>
-      {% for produto, dados in obj.get_quantidade_doacao_produtos.items %}
-      <li><p>{{ dados.0 }} {{ produto }} ({{ dados.1 }})</p></li>
+  {% for movimentacao in obj.movimentacaoproduto_set.all %}
+
+          <p>À <b>{{ movimentacao.pessoa }}</b></p>
+          <p>
+            <b>
+              Rua {{ movimentacao.pessoa.logradouro }},
+              número {{ movimentacao.pessoa.numero }},
+              Bairro {{ movimentacao.pessoa.bairro }},
+              {{ movimentacao.pessoa.cidade }} - {{ movimentacao.pessoa.estado }}
+
+            </b>
+          </p>
       {% endfor %}
-    </ul>
+  </br>
+  </br>
+  <p>Referente à Doação de tipo <b>{{ obj.tipo }}</b>,</p>
+  </br>
+  <p>O Instituto Cultural Confraria dos Pretos Velhos de Umbanda vem, através deste, registrar a doação de:</p>
+</br>
+<table class="table table-striped">
+  <thead>
+      <th>Produto</th>
+      <th>Pessoa</th>
+      <th>Quantidade</th>
+  </thead>
+  <tbody>
+      {% for movimentacao in obj.movimentacaoproduto_set.all %}
+          <tr>
+              <td><p>{{ movimentacao.produto }}</p></td>
+              <td>{{ movimentacao.pessoa }}</td>
+              <td><p>{{ movimentacao.quantidade }}</p></td>
+          </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
   </br>
   </br>
     <p class="text-center">Atenciosamente,</p>
@@ -84,15 +106,16 @@
     <p class="text-right">(19) 99855-6009 | contato@confrariadospretosvelhosdeumbanda.org</p>
     </br>
     <div class="card border-dark mb-5" style="max-width: 18rem;">
+    </br>
       <h4 class="text-right"> Ofício Nº 00<b>{{ obj.id }}</b></h4>
       <h4 class="text-right"> Data: 21/12/2021</h4>
       <h4 class="text-center">Recebido </h4>
       <h4 class="text-center">__________________________</h4>
 
     </div>
-
   </body>
 </html>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

@@ -38,9 +38,22 @@
                             </td>
                             <td>{{ movimentacao.tipo|default_if_none:'--' }}</td>
                             <td>{{ movimentacao.quantidade|default_if_none:'--'}}</td>
-                            <td>{{ movimentacao.produtos_envolvidos|join:', ' }}</td>
+                            <td>
+                                {% if movimentacao.produtos_envolvidos|length > 2 %}
+                                    {{ movimentacao.produtos_envolvidos|slice:":2"|join:', ' }}
+                                {% else %}
+                                    {{ movimentacao.produtos_envolvidos|join:', ' }}
+                                {% endif %}
+                            </td>
                             <!-- <td>{{ movimentacao.produtos.first|default_if_none:'--'}}</td> -->
-                            <td>{{ movimentacao.pessoas_envolvidas|join:', ' }}</td>
+
+                            <td>
+                                {% if movimentacao.pessoas_envolvidas|length > 2 %}
+                                    {{ movimentacao.pessoas_envolvidas|slice:":2"|join:', ' }} (...)
+                                {% else %}
+                                    {{ movimentacao.pessoas_envolvidas|join:', ' }}
+                                {% endif %}
+                            </td>
                             <td>{{ movimentacao.data|default_if_none:'--' }}</td>
                         </tr>
                     {% endfor %}
