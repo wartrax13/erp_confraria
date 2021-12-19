@@ -7,12 +7,15 @@
 
 
 {% block actions %}
+<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3">
+    <i class="fas fa-download fa-sm text-white-50"></i> Gerar PDF
+</a>
 <a href="{% url 'movimentacao_list' %}" class="btn btn-outline-success">Voltar</a>
 {% endblock actions %}
 
 
 {% block content %}
-<div class="col-sm-6">
+<div class="col-12">
     <table class="table table-user-information">
         <tbody>
         <tr>
@@ -21,37 +24,37 @@
         </tr>
         <tr>
             <th class="text-left">Tipo</th>
-            <td>{{ object.tipo }}</td>
+            <td>{{ object.get_tipo_display }}</td>
         </tr>
         <tr>
             <th class="text-left">Data</th>
             <td>{{ object.data }}</td>
         </tr>
         <tr>
-            <th class="text-left">Quantidade</th>
+            <th class="text-left">Total</th>
             <td>{{ object.quantidade }}</td>
-        </tr>
-        <tr>
-            <th class="text-left">Produto</th>
-            <td>{% for produto in movimentacao.produtos.all %}
-                {% ifchanged %}
-                {{ produto.nome|join:" // " }}
-                {% endifchanged %}
-            {% endfor %}    
-        </td>
-        </tr>
-        <tr>
-            <th class="text-left">Pessoa</th>
-            <td>{{ object.pessoa }}</td>
-        </tr>
-        <tr>
-            <th class="text-left">Quantidade atual de {{ object.produto }}(s)</th>
-            <td>{{ object.produto.estoque }}</td>
         </tr>
         </tbody>
     </table>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Gerar PDF</a>
+
+    <h2>Movimentações</h2>
+
+    <table class="table">
+        <thead>
+            <th>Produto</th>
+            <th>Pessoa</th>
+            <th>Quantidade</th>
+        </thead>
+        <tbody>
+            {% for movimentacao in object.movimentacaoproduto_set.all %}
+                <tr>
+                    <td>{{ movimentacao.produto }}</td>
+                    <td>{{ movimentacao.pessoa }}</td>
+                    <td>{{ movimentacao.quantidade }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 </div>
 
