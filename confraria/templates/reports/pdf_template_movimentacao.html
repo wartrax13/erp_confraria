@@ -58,23 +58,28 @@
         <p class="text-center">Rua Evaristo Jacon, 424, Parque Res. Manoel Simão Levy - Limeira, SP</p>
         <p class="text-center">(19) 99855-6009 | contato@confrariadospretosvelhosdeumbanda.org</p>
     </div>
+  </br>
     <p><b>{{ obj.data }}</b></p>
   </br>
   {% for movimentacao in obj.movimentacaoproduto_set.all %}
-
-          <p>À <b>{{ movimentacao.pessoa }}</b></p>
-          <p>
-            <b>
-              Rua {{ movimentacao.pessoa.logradouro }},
-              número {{ movimentacao.pessoa.numero }},
-              Bairro {{ movimentacao.pessoa.bairro }},
-              {{ movimentacao.pessoa.cidade }} - {{ movimentacao.pessoa.estado }}
-
-            </b>
+                {% ifchanged %}
+              <p><b>
+                    {{ movimentacao.pessoa }}
+                  </b>
+              </p>
+              <p>
+                  <b>
+                    Rua {{ movimentacao.pessoa.logradouro }},
+                    número {{ movimentacao.pessoa.numero }},
+                    Bairro {{ movimentacao.pessoa.bairro }},
+                    {{ movimentacao.pessoa.cidade }} - {{ movimentacao.pessoa.estado }}
+                    {% endifchanged %}
+                    
+                  </b>
           </p>
       {% endfor %}
   </br>
-  </br>
+
   <p>Referente à Doação de tipo <b>{{ obj.tipo }}</b>,</p>
   </br>
   <p>O Instituto Cultural Confraria dos Pretos Velhos de Umbanda vem, através deste, registrar a doação de:</p>
@@ -82,14 +87,14 @@
 <table class="table table-striped">
   <thead>
       <th>Produto</th>
-      <th>Pessoa</th>
+      <!-- <th>Pessoa</th> -->
       <th>Quantidade</th>
   </thead>
   <tbody>
       {% for movimentacao in obj.movimentacaoproduto_set.all %}
           <tr>
               <td><p>{{ movimentacao.produto }}</p></td>
-              <td>{{ movimentacao.pessoa }}</td>
+              <!-- <td>{{ movimentacao.pessoa }}</td> -->
               <td><p>{{ movimentacao.quantidade }}</p></td>
           </tr>
       {% endfor %}
