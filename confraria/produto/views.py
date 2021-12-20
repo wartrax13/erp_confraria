@@ -1,11 +1,18 @@
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, View
 from django.urls import reverse_lazy
 
 from confraria.mixins import FormsetMixin
 from .forms import ProdutoForm, MovimentacaoForm, CategoriaForm, MovimentacaoFormSet
 from .models import Produto, Movimentacao, Categoria
+
+# pdf
+
+from django.template.loader import render_to_string
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from weasyprint import HTML
 
 
 class ProdutoListView(LoginRequiredMixin, ListView):
@@ -83,3 +90,24 @@ class CategoriaCreateView(LoginRequiredMixin, CreateView):
 
 class CategoriaListView(LoginRequiredMixin, ListView):
     model = Categoria
+
+
+class GerarPdfMovimentacaoView(View):
+    def generate_pdf(self, obj):
+        html_string = render_to_string('reports/pdf_template_movimentacao.html', {'obj': obj})
+        link = obj.pk
+        html = HTML(string=html_string, base_url=self.request.build_absolute_uri())
+        html.write_pdf(target=f'/tmp/{link}.pdf')
+
+        fs = FileSystemStorage('/tmp')
+        with fs.open(f'{link}.pdf') as pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Transfer-Encoding'] = 'binary'
+            response['Content-Disposition'] = 'inline; filename="{}.pdf"'.format(link)
+
+            return response
+
+    def get(self, request, *args, **kwargs):
+        obj = Movimentacao.objects.get(pk=kwargs['pk'])
+        response = self.generate_pdf(obj)
+        return response
