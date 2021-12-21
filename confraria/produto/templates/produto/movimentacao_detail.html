@@ -7,7 +7,7 @@
 
 
 {% block actions %}
-<a href="{% url 'movimentacao_pdf' pk=object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3">
+<a href="{% url 'movimentacao_pdf' pk=object.id %}" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3">
     <i class="fas fa-download fa-sm text-white-50"></i> Gerar PDF
 </a>
 <a href="{% url 'movimentacao_list' %}" class="btn btn-outline-success">Voltar</a>
