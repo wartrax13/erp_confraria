@@ -59,7 +59,7 @@
         <p class="text-center">(19) 99855-6009 | contato@confrariadospretosvelhosdeumbanda.org</p>
     </div>
   </br>
-    <p><b>{{ obj.data }}</b></p>
+    <p><b>{{ obj.data|date }}</b></p>
   </br>
   {% for movimentacao in obj.movimentacaoproduto_set.all %}
                 {% ifchanged %}
