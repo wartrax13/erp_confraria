@@ -46,42 +46,40 @@
       <div class="card border-light rounded float-right" style="width: 18rem;">
         <img src="{% static 'images/logo.png' %}" class="rounded float-right"/>
         <div class="card border-dark mb-4">
-          <h3 class="text-center">Ofício Nº 00{{ obj.id|add:172 }}</h3>
+          <h3 class="text-center">Ofício Nº 00{{ obj.id|add:213 }}</h3>
         </div>
       </div>
       
     </div>
     <div class="col-lg-8">
-        <h3 class="text-center">INSTITUTO CULTURAL CONFRARIA DOS PRETOS VELHOS DE UMBANDA</h3>
-        <h4 class="text-center">CULTURA - EDUCAÇÃO - DIREITOS SOCIAIS - RELIGIÃO</h4>
-        <p class="text-center">CNPJ 75.497.994/0001-00 - Presidente: Evandro Cesar de Oliveira Fernandes</p>
+        <h5 class="text-center">INSTITUTO CULTURAL CONFRARIA DOS PRETOS VELHOS DE UMBANDA</h5>
+        <h6 class="text-center">CULTURA - EDUCAÇÃO - DIREITOS SOCIAIS - RELIGIÃO</h6>
+        <p class="text-center">CNPJ 23.282.397/0001-00 - Presidente: Evandro Cesar de Oliveira Fernandes</p>
         <p class="text-center">Rua Evaristo Jacon, 424, Parque Res. Manoel Simão Levy - Limeira, SP</p>
         <p class="text-center">(19) 99855-6009 | contato@confrariadospretosvelhosdeumbanda.org</p>
     </div>
   </br>
-    <p><b>{{ obj.data|date }}</b></p>
-  </br>
-  {% for movimentacao in obj.movimentacaoproduto_set.all %}
-                {% ifchanged %}
-              <p><b>
-                    {{ movimentacao.pessoa }}
-                  </b>
-              </p>
-              <p>
-                  <b>
-                    Rua {{ movimentacao.pessoa.logradouro }},
-                    número {{ movimentacao.pessoa.numero }},
-                    Bairro {{ movimentacao.pessoa.bairro }},
-                    {{ movimentacao.pessoa.cidade }} - {{ movimentacao.pessoa.estado }}
-                    {% endifchanged %}
-                    
-                  </b>
+    <p><b>{{ obj.data|date|lower }}</b></p>
+      {% for movimentacao in obj.movimentacaoproduto_set.all %}
+        {% ifchanged %}
+          <p>À <b>{{ movimentacao.pessoa }}</b></p>
+          <p>
+            <b>
+              {% if movimentacao.pessoa.logradouro %}
+              Rua {{ movimentacao.pessoa.logradouro }},
+              {% endif %}
+              {% if movimentacao.pessoa.numero %}
+              {{ movimentacao.pessoa.numero }},
+              {% endif %}
+              {{ movimentacao.pessoa.bairro }}, 
+              {{ movimentacao.pessoa.cidade }} - {{ movimentacao.pessoa.estado }}
+              {% endifchanged %}
+            </b>
           </p>
-      {% endfor %}
+        {% endfor %}
   </br>
 
-  <p>Referente à Doação de tipo <b>{{ obj.tipo }}</b>,</p>
-  </br>
+  <p>Referente à doação de tipo <b>{% if obj.tipo == 'entrada' %}entrada{% else %}saída{% endif %}</b>,</p>
   <p>O Instituto Cultural Confraria dos Pretos Velhos de Umbanda vem, através deste, registrar a doação de:</p>
 </br>
 <table class="table table-striped">
@@ -107,13 +105,13 @@
     <p class="text-right">________________________________________________</p>
     <p class="text-right"><b>Evandro C. O. Fernandes e Zilda Fernandes</b></p>
     <p class="text-right">Tenda de Umbanda Pai Joaquim D'angola e Exú Tiriri</p>
-    <p class="text-right">Instituto Confraria dos Pretos Velhos de Umbanda</p>
+    <p class="text-right">Instituto Cultural Confraria dos Pretos Velhos de Umbanda</p>
     <p class="text-right">(19) 99855-6009 | contato@confrariadospretosvelhosdeumbanda.org</p>
     </br>
     <div class="card border-dark mb-5" style="max-width: 18rem;">
     </br>
-      <h4 class="text-right"> Ofício Nº 00<b>{{ obj.id|add:172 }}</b></h4>
-      <h4 class="text-right"> Data: 21/12/2021</h4>
+      <h4 class="text-left" style="margin-left: 10px;"> Ofício Nº 00<b>{{ obj.id|add:213 }}</b></h4>
+      <h4 class="text-left" style="margin-left: 10px;"> Data: __________________ </h4>
       <h4 class="text-center">Recebido </h4>
       <h4 class="text-center">__________________________</h4>
 
