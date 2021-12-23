@@ -31,7 +31,7 @@ class Produto(models.Model):
 
     def __str__(self):
         if self.descricao:
-            return f'{self.nome} ({self.descricao[:10]})'
+            return f'{self.nome} ({self.descricao[:15]})'
         return self.nome
 
     @property
