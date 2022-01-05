@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from django.db.models import Max
 
 
 class TipoMovimentacaoChoices(models.TextChoices):
@@ -60,7 +61,7 @@ class Produto(models.Model):
 class Movimentacao(models.Model):
     tipo = models.CharField('Tipo', max_length=128, choices=TipoMovimentacaoChoices.choices)
     data = models.DateTimeField()
-
+    numero_oficio = models.IntegerField(blank=True, null=True, unique=True)
     produtos = models.ManyToManyField(
         Produto,
         through='MovimentacaoProduto',
@@ -70,6 +71,11 @@ class Movimentacao(models.Model):
     class Meta:
         verbose_name = 'Movimentação'
         verbose_name_plural = 'Movimentações'
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.numero_oficio = Movimentacao.objects.aggregate(Max('numero_oficio'))['numero_oficio__max'] + 1
+        super(Movimentacao, self).save(*args, **kwargs)
 
     @property
     def quantidade(self):
