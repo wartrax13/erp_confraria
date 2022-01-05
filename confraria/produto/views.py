@@ -95,7 +95,7 @@ class CategoriaListView(LoginRequiredMixin, ListView):
 class GerarPdfMovimentacaoView(View):
     def generate_pdf(self, obj):
         html_string = render_to_string('reports/pdf_template_movimentacao.html', {'obj': obj})
-        link = obj.pk
+        link = obj.numero_oficio
         html = HTML(string=html_string, base_url=self.request.build_absolute_uri())
         html.write_pdf(target=f'/tmp/{link}.pdf')
 

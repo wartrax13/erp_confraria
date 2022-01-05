@@ -21,7 +21,7 @@
             <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Ofício Nº</th>
                         <th>Tipo</th>
                         <th>Quantidade</th>
                         <th>Produtos Envolvidos</th>
@@ -34,8 +34,9 @@
                     {% for movimentacao in object_list %}
                         <tr>
                             <td>
-                                <a href="{% url 'movimentacao_detail' pk=movimentacao.pk %}">{{ movimentacao.pk }}</a>
+                                <a href="{% url 'movimentacao_detail' pk=movimentacao.pk %}">{{ movimentacao.numero_oficio}}</a>
                             </td>
+
                             <td>{{ movimentacao.tipo|default_if_none:'--' }}</td>
                             <td>{{ movimentacao.quantidade|default_if_none:'--'}}</td>
                             <td>

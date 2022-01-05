@@ -50,7 +50,7 @@
       <div class="card border-light rounded float-right" style="width: 18rem;">
         <img src="{% static 'images/logo.png' %}" class="rounded float-right"/>
         <div class="card border-dark mb-4">
-          <h3 class="text-center">Ofício Nº 00{{ obj.id|add:225 }}</h3>
+          <h3 class="text-center">Ofício Nº 00{{ obj.movimentacao.numero_oficio }}</h3>
         </div>
 
       </div>
@@ -84,7 +84,7 @@
     <p class="text-right">(19) 99855-6009 | contato@confrariadospretosvelhosdeumbanda.org</p>
     </br>
     <div class="card border-dark mb-5" style="max-width: 18rem;">
-      <h4 class="text-right"> Ofício Nº 00<b>{{ obj.id|add:225 }}</b></h4>
+      <h4 class="text-right"> Ofício Nº 00<b>{{ obj.movimentacao.numero_oficio }}</b></h4>
       <h4 class="text-right"> Data: 21/12/2021</h4>
       <h4 class="text-center">Recebido </h4>
       <h4 class="text-center">__________________________</h4>
