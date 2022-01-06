@@ -61,6 +61,7 @@ class Produto(models.Model):
 class Movimentacao(models.Model):
     tipo = models.CharField('Tipo', max_length=128, choices=TipoMovimentacaoChoices.choices)
     data = models.DateTimeField()
+    observacao = models.TextField(blank=True, null=True, verbose_name='Observações')
     numero_oficio = models.IntegerField(blank=True, null=True, unique=True)
     produtos = models.ManyToManyField(
         Produto,

@@ -74,6 +74,14 @@
       <li><p>{{ dados.0 }} {{ produto }} ({{ dados.1 }})</p></li>
       {% endfor %}
     </ul>
+    {% if obj.observacao %}
+    <div class="card">
+      <h5 class="card-header">Observações</h5>
+      <div class="card-body">
+        <p class="card-text justify-content-center">{{ obj.observacao }} </p>
+      </div>
+    </div>
+    {% endif %}
   </br>
   </br>
     <p class="text-center">Atenciosamente,</p>
