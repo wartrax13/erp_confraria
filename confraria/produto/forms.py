@@ -18,6 +18,7 @@ class MovimentacaoProdutoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.tipo = kwargs.pop('tipo')
         super().__init__(*args, **kwargs)
+        self.fields['pessoa'].queryset = self.fields['pessoa'].queryset.order_by('nome')
 
     def clean_quantidade(self):
         value = self.cleaned_data['quantidade']
@@ -31,10 +32,21 @@ class BaseMovimentacaoFormSet(BaseInlineFormSet):
         qtd_total = {}
         tipo = self.forms[0].tipo
         for form in self.forms:
-            try:
-                qtd_total[form.cleaned_data['produto'].pk] += form.cleaned_data['quantidade']
-            except KeyError:
-                qtd_total[form.cleaned_data['produto'].pk] = form.cleaned_data['quantidade']
+            produto = form.cleaned_data.get('produto')
+            quantidade = form.cleaned_data.get('quantidade')
+            pessoa = form.cleaned_data.get('pessoa') or self.forms[0].cleaned_data.get('pessoa')
+            if not pessoa:
+                form.add_error('pessoa', 'Pessoa é obrigatória')
+            if produto and quantidade:
+                try:
+                    qtd_total[produto.pk] += quantidade
+                except KeyError:
+                    qtd_total[produto.pk] = quantidade
+            else:
+                if not produto:
+                    form.add_error('produto', 'Produto é obrigatório')
+                if not quantidade:
+                    form.add_error('quantidade', 'Quantidade é obrigatória')
         for produto_pk, quantidade in qtd_total.items():
             produto = Produto.objects.get(pk=produto_pk)
             if tipo == TipoMovimentacaoChoices.SAIDA and produto.estoque < quantidade:
