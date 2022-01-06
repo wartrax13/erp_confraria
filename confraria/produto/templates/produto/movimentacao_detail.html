@@ -55,7 +55,14 @@
             {% endfor %}
         </tbody>
     </table>
-
+{% if object.observacao %}
+    <div class="card">
+        <h5 class="card-header">Observações</h5>
+        <div class="card-body">
+          <p class="card-text justify-content-center">{{ object.observacao }} </p>
+        </div>
+    </div>
+{% endif %}
 </div>
 
 {% endblock content %}

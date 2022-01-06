@@ -81,6 +81,7 @@ class MovimentacaoForm(forms.ModelForm):
         fields = [
             'tipo',
             'data',
+            'observacao',
         ]
 
 

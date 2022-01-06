@@ -65,6 +65,15 @@
         </div>
         <button type="button" id="add_item_id" class="btn btn-primary">Registro <i class="fas fa-plus"></i></button>
     </div>
+
+    <div class="col-lg-10">
+        <label class="h5 text-primary text-right" for="{{ form.observacao.id_for_label }}">{{ form.observacao.label }}</label>
+        {% render_field form.observacao class="form-control" rows="3" placeholder="Observações importantes" %}
+        <div class="invalid-feedback">
+            {{ form.observacao.errors }}
+        </div>
+    </div>
+
     <div class="col-12 my-2 d-flex justify-content-center">
         <button type="submit" class="btn btn-success">Salvar</button>
     </div>
