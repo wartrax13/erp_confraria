@@ -40,8 +40,8 @@
         </div>
         <div id="movimentacao_list">
             {% for form in formset %}
-                {{ form.id }}
-                <div class="movimentacao_item row" >
+                <div id="{{ form.prefix }}-item" class="movimentacao_item row align-items-center" >
+                    {{ form.id }}
                     <div class="col-4 ml-2">
                         {% render_field form.pessoa class="form-control" %}
                         <div class="invalid-feedback">
@@ -59,6 +59,14 @@
                         <div class="invalid-feedback">
                             {{ form.quantidade.errors }}
                         </div>
+                    </div>
+                    <div>
+                        <button
+                            id="{{ form.prefix }}-button"
+                            type="button"
+                            class="btn btn-danger btn-sm"
+                            onclick="removeLine(this)"
+                        >X</button>
                     </div>
                 </div>
             {% endfor %}
@@ -85,6 +93,16 @@
 
 <script type="text/javascript">
 
+    function removeLine (element) {
+        div_id = element.id.replace('-button', '-item')
+        lineToRemove = document.getElementById(div_id)
+        lineToRemove.remove()
+        let totalForms = document.querySelector("#id_movimentacaoproduto_set-TOTAL_FORMS")
+        let totalFormNum = parseInt(totalForms.value)
+        totalFormNum--
+        totalForms.setAttribute('value', `${totalFormNum}`)
+    }
+
     $(document).ready(function() {
         $("#add_item_id").click(function(e) {
             e.preventDefault()
@@ -98,10 +116,10 @@
             let formRegex = RegExp(`movimentacaoproduto_set-(\\d){1}-`,'g')
 
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `movimentacaoproduto_set-${formNum}-`)
+            newForm.id = newForm.id.replace(formRegex, `movimentacaoproduto_set-${formNum}-`)
             container.insertBefore(newForm, null)
             totalFormNum++
             totalForms.setAttribute('value', `${totalFormNum}`)
-
         });
     });
 
