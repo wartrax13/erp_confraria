@@ -94,9 +94,24 @@ class Movimentacao(models.Model):
             'produto__nome'
         ).distinct().values_list('produto__nome', flat=True)
 
+    def __str__(self):
+        return 'OFÍCIO {} | Tipo: {} | Data: {}'.format(
+            self.numero_oficio,
+            self.tipo,
+            self.data
+        )
+
 
 class MovimentacaoProduto(models.Model):
     movimentacao = models.ForeignKey(Movimentacao, on_delete=models.PROTECT)
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     pessoa = models.ForeignKey('pessoa.Pessoa', on_delete=models.PROTECT)
     quantidade = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return 'OFÍCIO {} | {} para {} | QTD: {}'.format(
+            self.movimentacao.numero_oficio,
+            self.produto,
+            self.pessoa,
+            self.quantidade
+        )
