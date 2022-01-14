@@ -113,7 +113,7 @@
             let container = document.querySelector("#movimentacao_list")
 
             let newForm = itens[formNum-1].cloneNode(true)
-            let formRegex = RegExp(`movimentacaoproduto_set-(\\d){1}-`,'g')
+            let formRegex = RegExp(`movimentacaoproduto_set-(\\d+){1}-`,'g')
 
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `movimentacaoproduto_set-${formNum}-`)
             newForm.id = newForm.id.replace(formRegex, `movimentacaoproduto_set-${formNum}-`)
