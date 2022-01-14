@@ -84,7 +84,7 @@ class PessoaFisicaManager(models.Manager):
     Os dados que não tiverem CNPJ, são PF.
     """
     def get_queryset(self):
-        return super().get_queryset().exclude(cnpj__isnull=False)
+        return super().get_queryset().exclude(razao_social__isnull=False)
 
 
 class PessoaFisica(Pessoa):
@@ -102,7 +102,7 @@ class PessoaJuridicaManager(models.Manager):
     Os dados que tiverem CNPJ, são PJ.
     """
     def get_queryset(self):
-        return super().get_queryset().filter(cnpj__isnull=False)
+        return super().get_queryset().filter(razao_social__isnull=False)
 
 
 class PessoaJuridica(Pessoa):

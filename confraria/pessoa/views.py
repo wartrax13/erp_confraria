@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PessoaFisicaForm, TelefoneFormSet, PessoaJuridicaForm, TelefonePessoaJuridicaFormSet
 from confraria.mixins import FormsetMixin
 from .models import PessoaFisica, PessoaJuridica
-from confraria.produto.models import Movimentacao
+from confraria.produto.models import Movimentacao, MovimentacaoProduto
 
 
 class PessoaFisicaListView(LoginRequiredMixin, ListView):
@@ -93,7 +93,12 @@ class Intro(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(Intro, self).get_context_data(*args, **kwargs)
-        context['id'] = Movimentacao.objects.all().count()
+        context['movimentacoes'] = Movimentacao.objects.all().count()
+        context['movimentacaoproduto'] = MovimentacaoProduto.objects.all().count()
+        context['saida'] = Movimentacao.objects.filter(tipo='saida').count()
+        context['entrada'] = Movimentacao.objects.filter(tipo='entrada').count()
+        context['total_pessoas'] = PessoaFisica.objects.all().count()
+        context['total_instituicoes'] = PessoaJuridica.objects.all().count()
         return context
 
 

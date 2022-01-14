@@ -5,12 +5,12 @@ from confraria.pessoa.models import PessoaFisica, PessoaJuridica
 
 @pytest.fixture
 def pessoa_fisica(db):
-    return baker.make('pessoa.Pessoa', cnpj=None)
+    return baker.make('pessoa.Pessoa', razao_social=None)
 
 
 @pytest.fixture
 def pessoa_juridica(db):
-    return baker.make('pessoa.Pessoa', cnpj='05.418.904/0001-55')
+    return baker.make('pessoa.Pessoa', razao_social='Qualquer titulo')
 
 
 def test_pessa_fisica_queryset_filter(pessoa_fisica):
