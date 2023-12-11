@@ -14,7 +14,7 @@ novo_evento = Evento.objects.create(
     categoria=categoria
 )
 
-# Duplicar as DoacaoEvento relacionadas
+# Duplicar as DoacaoEvento relacionadas ao Evento
 for doacao_evento in original_evento.doacaoevento_set.all():
     DoacaoEvento.objects.create(
         pessoa=doacao_evento.pessoa,
